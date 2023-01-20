@@ -1,3 +1,3 @@
-# FantasyBasketballHelper
+# NBA Trade Machine
 
---Focusing on scaping data from NBA stats and injury websites
+--Focusing on scraping web data, converting array of objects to CSV, and importing it onto Postgres
