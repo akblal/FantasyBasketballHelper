@@ -37,6 +37,9 @@ axios(playerInjuriesURL)
       const playerInjuryInfo = {}
       $(parentElem).children().each((childIdx, childElem) => {
         let info = $(childElem).text();
+        // if (info === '') {
+        //   info = 'N/A'
+        // }
         playerInjuryInfo[injuryTableLabel[childIdx]] = info;
       })
       allPlayerInjuryList.push(playerInjuryInfo)
