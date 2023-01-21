@@ -16,6 +16,7 @@ app.use(express.static('client/dist'));
 app.use(express.json());
 
 const playerInjuriesURL = 'https://www.espn.com/nba/injuries';
+const allPlayerStatsURL = 'https://www.nbastuffer.com/2022-2023-nba-player-stats/';
 
 axios(playerInjuriesURL)
   .then ((response) => {
@@ -37,9 +38,6 @@ axios(playerInjuriesURL)
       const playerInjuryInfo = {}
       $(parentElem).children().each((childIdx, childElem) => {
         let info = $(childElem).text();
-        // if (info === '') {
-        //   info = 'N/A'
-        // }
         playerInjuryInfo[injuryTableLabel[childIdx]] = info;
       })
       allPlayerInjuryList.push(playerInjuryInfo)
@@ -49,10 +47,75 @@ axios(playerInjuriesURL)
     injuryCSV.toDisk('./injuryList.csv')
   })
   .catch ((err) => {
-    console.log(err)
+    console.log(err, 'with all player injuries')
   })
 
+axios(allPlayerStatsURL)
+  .then((response) => {
+    let html = response.data;
+    let $ = cheerio.load(html)
 
+    let playerData = $('.row-hover')
+    let allPlayerData = []
+    let player = {};
+    $(playerData).each((parentIdx, parentElem) => {
+      const playerStats = [
+        'name',
+        'team',
+        'position',
+        'age',
+        'gamesPlayed',
+        'mpg',
+        'min%',
+        'usg%',
+        'to%',
+        'fta',
+        'ft%',
+        '2pa',
+        '2p%',
+        '3pa',
+        '3p%',
+        'efg%',
+        'ts%',
+        'ppg',
+        'rpg',
+        'trb%',
+        'apg',
+        'ast%',
+        'spg',
+        'bpg',
+        'topg',
+        'vi',
+        'ortg',
+        'drtg'
+      ];
+      let index = 0;
+      $(playerData).children().children().each((grandChildIdx, grandChildElem) => {
+        if ($(grandChildElem).text() != '' && grandChildIdx >=1) {
+          player[playerStats[index]] = $(grandChildElem).text();
+          if (index === 27) {
+            allPlayerData.push(player)
+            player = {}
+          }
+          index++
+        } else if (index <= 27 && grandChildIdx >1){
+          player[playerStats[index]] = 'N/A';
+          if (index === 27) {
+            allPlayerData.push(player)
+            player = {}
+          }
+          index++
+        } else {
+          index = 0;
+          }
+      })
+    })
+    let allPlayerStatsCSV = new ObjectsToCsv(allPlayerData);
+    allPlayerStatsCSV.toDisk('./playerStats.csv')
+  })
+  .catch ((err) => {
+    console.log (err, 'with all player stats')
+  })
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
