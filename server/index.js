@@ -117,8 +117,6 @@ axios(allPlayerStatsURL)
     console.log (err, 'with all player stats')
   })
 
-
-
 app.get('/playersFromTeam', controller.playersFromTeam)
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
@@ -127,7 +125,6 @@ app.get('/*', function(req, res) {
     }
   })
 })
-
 
 app.listen(Number(process.env.PORT),()=>{
   console.log(`listening on port ${process.env.PORT}`);
