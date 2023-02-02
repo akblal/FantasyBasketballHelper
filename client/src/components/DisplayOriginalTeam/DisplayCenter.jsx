@@ -22,7 +22,7 @@ function DisplayCenter ({ playersOnTeam }) {
         <h2>Center</h2>
         : null}
       {center.length ? center.map((player) => {
-        return <h4 key= {player.name}>{player.name}</h4>
+        return <h4 key= {player.name}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )

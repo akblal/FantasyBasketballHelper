@@ -31,7 +31,8 @@ function DisplayOriginalTeam () {
       }
     })
     .then((results) => {
-      let players = results.data.rows
+      let players = results.data;
+      console.log (results.data)
       setPlayersOnTeam(players.slice())
     })
     .catch ((err) => {

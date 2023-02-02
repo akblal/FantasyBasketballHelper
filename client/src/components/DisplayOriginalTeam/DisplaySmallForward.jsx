@@ -22,7 +22,7 @@ function DisplaySmallForward ({ playersOnTeam }) {
         <h2>Small Forward</h2>
         : null}
       {smallForward.length ? smallForward.map((player) => {
-        return <h4 key= {player.name}>{player.name}</h4>
+        return <h4 key= {player.name}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )

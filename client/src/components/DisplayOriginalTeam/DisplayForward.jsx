@@ -22,7 +22,7 @@ function DisplayForward ({ playersOnTeam }) {
         <h2>Forward</h2>
         : null}
       {forward.length ? forward.map((player) => {
-        return <h4 key= {player.name}>{player.name}</h4>
+        return <h4 key= {player.name}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )

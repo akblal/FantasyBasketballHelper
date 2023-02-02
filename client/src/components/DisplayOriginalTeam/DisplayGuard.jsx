@@ -22,7 +22,7 @@ function DisplayGuard ({ playersOnTeam }) {
         <h2>Guard</h2>
         : null}
       {guard.length ? guard.map((player) => {
-        return <h4 key= {player.name}>{player.name}</h4>
+        return <h4 key= {player.name}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
