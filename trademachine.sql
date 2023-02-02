@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS injury;
 DROP TABLE IF EXISTS allPlayers;
+DROP TABLE IF EXISTS salary;
 
 CREATE TABLE injury (
   name TEXT NOT NULL,
@@ -40,5 +41,12 @@ CREATE TABLE allPlayers (
   drtg TEXT
 );
 
-\COPY injury FROM 'injuryList.csv' DELIMITERS ',' CSV;
-\COPY allPlayers FROM 'playerStats.csv' DELIMITERS ',' CSV;
+CREATE TABLE salary (
+  name TEXT NOT NULL,
+  team TEXT NOT NULL,
+  salary TEXT NOT NULL
+);
+
+\COPY injury FROM 'injuryList.csv' DELIMITERS ',' CSV HEADER;
+\COPY allPlayers FROM 'playerStats.csv' DELIMITERS ',' CSV HEADER;
+\COPY salary FROM 'playerSalary.csv' DELIMITERS ',' CSV HEADER;

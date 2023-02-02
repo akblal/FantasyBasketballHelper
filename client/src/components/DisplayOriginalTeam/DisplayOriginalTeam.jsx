@@ -7,14 +7,18 @@ import DisplaySmallForward from './DisplaySmallForward.jsx';
 import DisplayForward from './DisplayForward.jsx';
 import DisplayPowerForward from './DisplayPowerForward.jsx';
 import DisplayCenter from './DisplayCenter.jsx';
-import TradeDropDownMenu from './TradeDropDownMenu.jsx';
+import TradeOption from './TradeOption.jsx';
 import TradeButton from './TradeButton.jsx';
 import DropDownMenuList from './DropDownMenuList.jsx';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
 
 function DisplayOriginalTeam () {
 
   const {team} = useContext(TeamContext);
   const [playersOnTeam, setPlayersOnTeam] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getPlayers();
@@ -35,32 +39,35 @@ function DisplayOriginalTeam () {
     })
   }
 
-  const handleAddTeamTrade = () => {
-    console.log('trade initiated!')
-  }
-
   return (
-  <div>
-    <h1>list of players on {team.name}</h1>
-    <div className= 'team-container'>
-      {playersOnTeam.length ?
-        <div>
-          <DisplayGuard playersOnTeam= {playersOnTeam} />
-          <DisplaySmallForward playersOnTeam= {playersOnTeam} />
-          <DisplayForward playersOnTeam= {playersOnTeam} />
-          <DisplayPowerForward playersOnTeam= {playersOnTeam} />
-          <DisplayCenter playersOnTeam= {playersOnTeam} />
+    <div>
+      <div className= 'team-container'>
+        <div className= 'team-1-container'>
+          <h1>{team.name}</h1>
+          {playersOnTeam.length ?
+            <div>
+              <DisplayGuard playersOnTeam= {playersOnTeam} />
+              <DisplaySmallForward playersOnTeam= {playersOnTeam} />
+              <DisplayForward playersOnTeam= {playersOnTeam} />
+              <DisplayPowerForward playersOnTeam= {playersOnTeam} />
+              <DisplayCenter playersOnTeam= {playersOnTeam} />
+            </div>
+            : null}
         </div>
-        : null}
-      {playersOnTeam.length ?
-        <TradeDropDownMenu>
-          <TradeButton icon= '+'>
-            <DropDownMenuList />
-          </TradeButton>
-        </TradeDropDownMenu>
-        : null}
+        <div className= 'add-trade-button-container'>
+          {playersOnTeam.length ?
+            <div>
+              <h1>Trade</h1>
+              <TradeOption>
+                <TradeButton icon= {<FontAwesomeIcon icon= {faRightLeft} className= 'trade-icon'/>}>
+                </TradeButton>
+              </TradeOption>
+            </div>
+              : null}
+
+        </div>
+      </div>
     </div>
-  </div>
   )
 }
 

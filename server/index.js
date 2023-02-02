@@ -17,6 +17,7 @@ app.use(express.json());
 
 const playerInjuriesURL = 'https://www.espn.com/nba/injuries';
 const allPlayerStatsURL = 'https://www.nbastuffer.com/2022-2023-nba-player-stats/';
+const allPlayerSalary = 'http://www.espn.com/nba/salaries/_/page/';
 
 axios(playerInjuriesURL)
   .then ((response) => {
@@ -116,6 +117,69 @@ axios(allPlayerStatsURL)
   .catch ((err) => {
     console.log (err, 'with all player stats')
   })
+
+let count = 1;
+let url = allPlayerSalary + (count.toString())
+let allPlayerSalaryList = [];
+const getSalary = async (url) => {
+  try {
+    axios(url)
+      .then ((response) => {
+        const html = response.data
+        const $ = cheerio.load(html);
+
+        let playerSalary = [
+          'name',
+          'team',
+          'salary'
+        ]
+
+        const playerSalaryInfo = '#my-players-table > div > div.mod-content > table > tbody > tr'
+        $(playerSalaryInfo).each((parentIdx, parentElem) => {
+            let player = {}
+            $(parentElem).children().each((childIdx, childElem) => {
+              if ($(childElem).text() != 'RK' && $(childElem).text() != 'NAME' && $(childElem).text() != 'TEAM' && $(childElem).text() != 'SALARY') {
+                if (childIdx === 1) {
+                  let namePosition = $(childElem).text();
+                  let indexComma = namePosition.indexOf(',')
+                  let name = namePosition.substring(0, indexComma)
+                  player[playerSalary[childIdx - 1]] = name;
+                } else if (childIdx > 1) {
+                  player[playerSalary[childIdx - 1]] = $(childElem).text();
+                }
+              }
+            })
+            if (Object.keys(player).length) {
+              allPlayerSalaryList.push(player)
+            }
+        })
+
+      })
+      .then (() => {
+        console.log(allPlayerSalaryList, allPlayerSalaryList.length)
+        let allPlayerStatsCSV = new ObjectsToCsv(allPlayerSalaryList);
+        allPlayerStatsCSV.toDisk('./playerSalary.csv')
+      })
+      .catch ((err) => {
+        console.log(err, 'with all player injuries')
+      })
+      if (count === 13) {
+        return false;
+      } else {
+        count++
+        url = allPlayerSalary + (count.toString());
+        getSalary(url)
+      }
+  }
+  catch (err){
+    console.log (err)
+  }
+}
+
+
+
+getSalary(url)
+
 
 app.get('/playersFromTeam', controller.playersFromTeam)
 app.get('/*', function(req, res) {
