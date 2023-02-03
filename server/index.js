@@ -18,6 +18,7 @@ app.use(express.json());
 const playerInjuriesURL = 'https://www.espn.com/nba/injuries';
 const allPlayerStatsURL = 'https://www.nbastuffer.com/2022-2023-nba-player-stats/';
 const allPlayerSalary = 'http://www.espn.com/nba/salaries/_/page/';
+const teamDraftPicks = 'https://basketball.realgm.com/nba/draft/future_drafts/team';
 
 axios(playerInjuriesURL)
   .then ((response) => {
@@ -118,8 +119,8 @@ axios(allPlayerStatsURL)
     console.log (err, 'with all player stats')
   })
 
-let count = 1;
-let url = allPlayerSalary + (count.toString())
+let page = 1;
+let url = allPlayerSalary + (page.toString())
 let allPlayerSalaryList = [];
 const getSalary = async (url) => {
   try {
@@ -156,18 +157,18 @@ const getSalary = async (url) => {
 
       })
       .then (() => {
-        console.log(allPlayerSalaryList, allPlayerSalaryList.length)
+        // console.log(allPlayerSalaryList, allPlayerSalaryList.length)
         let allPlayerStatsCSV = new ObjectsToCsv(allPlayerSalaryList);
         allPlayerStatsCSV.toDisk('./playerSalary.csv')
       })
       .catch ((err) => {
         console.log(err, 'with all player injuries')
       })
-      if (count === 13) {
+      if (page === 13) {
         return false;
       } else {
-        count++
-        url = allPlayerSalary + (count.toString());
+        page++
+        url = allPlayerSalary + (page.toString());
         getSalary(url)
       }
   }
@@ -176,12 +177,46 @@ const getSalary = async (url) => {
   }
 }
 
-
-
 getSalary(url)
 
+axios(teamDraftPicks)
+  .then((response) => {
+    const html = response.data;
+    const $ = cheerio.load(html)
+
+    const teamPicks = [
+      'name',
+      'firstRound',
+      'secondRound'
+    ]
+
+    let overallPicks = [];
+
+    const getPicksInfo = $('#site-takeover > div.main-container > div > table > tbody > tr');
+    getPicksInfo.each((parentIdx, parentElem) => {
+      let team = {};
+      $(parentElem).children().each((childIdx, childElem) => {
+        const text = $(childElem).text();
+        if (childIdx > 0) {
+          let count = 0;
+          for(let i = 0;i < text.length - 2; i++) {
+              if(text[i] === 'O' && text[i + 1] === 'w' && text[i + 2] === 'n') {
+                  count++;
+              }
+          }
+          team[teamPicks[childIdx]] = count;
+        } else {
+          team[teamPicks[childIdx]] = text;
+        }
+      })
+      overallPicks.push(team)
+    })
+    let allPicksCSV = new ObjectsToCsv(overallPicks);
+    allPicksCSV.toDisk('./teamDraftPicks.csv')
+  })
 
 app.get('/playersFromTeam', controller.playersFromTeam)
+app.get('/draftPicks', controller.draftPicks)
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
     if (err) {

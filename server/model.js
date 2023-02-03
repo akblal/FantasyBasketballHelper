@@ -10,12 +10,26 @@ module.exports = {
         ON a.name = s.name
         ) T
         WHERE T.team = '${team.abbv}';`)
-      pool.query(queryStatement, (err, result)=> {
+      pool.query(queryStatement, (err, result) => {
         if (err) {
           return reject(err)
         }
         console.log(result.rows)
-        resolve(result.rows)
+        resolve(result.rows);
+      })
+    })
+  },
+
+  draftPicks(team) {
+    return new Promise ((resolve, reject) => {
+      console.log (team.name)
+      const queryStatement = `SELECT * FROM draftpicks WHERE team = '${team.name}'`
+      pool.query(queryStatement, (err, result) => {
+        if (err) {
+          return reject (err)
+        }
+        console.log (result.rows, 'hello in model')
+        resolve(result.rows);
       })
     })
   }
