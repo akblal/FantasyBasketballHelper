@@ -96,10 +96,10 @@ a {
 
 }
 
-.team-1-container {
+/* .team-1-container {
   padding: 20px;
   width: 500px;
-}
+} */
 
 .trade-container{
   height: var(--nav-size);
@@ -203,4 +203,9 @@ a {
 .menu-secondary-exit-active {
   transform: translateX(110%);
   transition: all var(--speed) ease;
+}
+
+.trade-menu-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }

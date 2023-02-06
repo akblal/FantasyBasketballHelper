@@ -5,8 +5,9 @@ function TradeButton ( props ) {
 
   const [open, setOpen] = useState(false);
 
-  const pickedTeam = () => {
+  const pickedTeam = (team) => {
     setOpen(false);
+    props.handleTeamTwo(team);
   }
 
   return (
