@@ -1,7 +1,6 @@
 import React from 'react';
 
 function DisplayDraftPicks ({ teamDraftPicks }) {
-  console.log (teamDraftPicks)
   return (
     <div>
       <h2>

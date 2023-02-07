@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 import { TeamContext } from '../../App.jsx';
@@ -13,6 +13,7 @@ import DisplayDraftPicks from '../DisplayOriginalTeam/DisplayDraftPicks.jsx';
 import TradeOption from '../DisplayOriginalTeam/TradeOption.jsx';
 import TradeButton from '../DisplayOriginalTeam/TradeButton.jsx';
 import TradeButtonFunction from './TradeButtonFunction.jsx';
+import TradeGuard from '../TradedPlayers/TradeGuard.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
@@ -23,13 +24,13 @@ function TradeMenu () {
   const [secondTeam, setSecondTeam] = useState();
   const [secondTeamPlayers, setSecondTeamPlayers] = useState([])
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
+  const [addToTwo, setAddToTwo] = useState([]);
+  const [oneToTwo, setOneToTwo] = useState();
 
   const handleTeam2 = (team2) => {
     setSecondTeam(team2);
-    console.log(team2)
     getPlayers(team2);
     getPicks(team2);
-
   }
 
   const getPlayers = (team) => {
@@ -40,7 +41,6 @@ function TradeMenu () {
     })
     .then((results) => {
       let players = results.data;
-      console.log (results.data)
       setSecondTeamPlayers(players.slice())
     })
     .catch ((err) => {
@@ -64,11 +64,17 @@ function TradeMenu () {
     })
   }
 
+  const tradeToTwo = (player) => {
+    let temp = addToTwo.slice();
+    temp.push(player);
+    setAddToTwo(temp);
+    setOneToTwo(player)
+  }
 
   return (
     <div className= 'trade-menu-container'>
       <div>
-        <DisplayOriginalTeam />
+        <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo}/>
       </div>
       <div>
         <h2>One column</h2>
@@ -76,7 +82,18 @@ function TradeMenu () {
       <div>
         {!secondTeam ?
           <TradeButtonFunction handleTeam2= {handleTeam2}/>
-          : <h1>sorry, no trade button</h1>}
+          : null}
+        {addToTwo.length ?
+          <div>
+            <h1>players</h1>
+            <TradeGuard playersOnTeam= {addToTwo} />
+            <DisplaySmallForward playersOnTeam= {addToTwo} />
+            <DisplayForward playersOnTeam= {addToTwo} />
+            <DisplayPowerForward playersOnTeam= {addToTwo} />
+            <DisplayCenter playersOnTeam= {addToTwo} />
+          </div>
+          : null
+        }
       </div>
       <div>
         {secondTeamPlayers.length && teamDraftPicks?
@@ -88,7 +105,6 @@ function TradeMenu () {
             <DisplayPowerForward playersOnTeam= {secondTeamPlayers} />
             <DisplayCenter playersOnTeam= {secondTeamPlayers} />
             <DisplayDraftPicks teamDraftPicks= {teamDraftPicks}/>
-
           </div>
         : <h2>players not shown</h2>}
   </div>

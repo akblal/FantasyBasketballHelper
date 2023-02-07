@@ -22,7 +22,7 @@ function DisplayPowerForward ({ playersOnTeam }) {
         <h2>Power Forward</h2>
         : null}
       {powerForward.length ? powerForward.map((player) => {
-        return <h4 key= {player.name}>{player.name} {player.salary}</h4>
+        return <h4 key= {player.name} className= 'player-container'>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )

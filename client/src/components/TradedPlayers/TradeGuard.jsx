@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
+function TradeGuard ({ playersOnTeam }) {
 
   const [guard, setGuard] = useState([]);
 
@@ -21,7 +21,7 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
     setGuard(tempGuard.slice());
   }
 
-
+  console.log(playersOnTeam, 'in guards')
 
   const tradePlayer = (player) => {
     console.log(player, ' to be traded')
@@ -40,4 +40,4 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
   )
 }
 
-export default DisplayGuard
+export default TradeGuard

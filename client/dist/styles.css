@@ -209,3 +209,13 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+.player-container {
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.player-container:hover {
+  cursor: pointer;
+}

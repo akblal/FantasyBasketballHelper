@@ -9,17 +9,28 @@ import DisplayPowerForward from './DisplayPowerForward.jsx';
 import DisplayCenter from './DisplayCenter.jsx';
 import DisplayDraftPicks from './DisplayDraftPicks.jsx';
 
-function DisplayOriginalTeam () {
+function DisplayOriginalTeam ({ tradeToTwo, oneToTwo }) {
 
   const {team} = useContext(TeamContext);
   const [playersOnTeam, setPlayersOnTeam] = useState([]);
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [open, setOpen] = useState(false);
 
+
   useEffect(() => {
     getPlayers();
     getPicks();
   }, [])
+
+  useEffect(() => {
+    let team = [];
+    for (let i = 0; i < playersOnTeam.length; i++) {
+      if (playersOnTeam[i].name != oneToTwo.name) {
+        team.push(playersOnTeam[i])
+      }
+    }
+    setPlayersOnTeam(team)
+  }, [oneToTwo])
 
   const getPlayers = () => {
     axios.get('/playersFromTeam', {
@@ -29,7 +40,6 @@ function DisplayOriginalTeam () {
     })
     .then((results) => {
       let players = results.data;
-      console.log (results.data)
       setPlayersOnTeam(players.slice())
     })
     .catch ((err) => {
@@ -45,7 +55,6 @@ function DisplayOriginalTeam () {
     })
     .then((results) => {
       let picks = results.data[0];
-      console.log(picks)
       setTeamDraftPicks(picks);
     })
     .catch ((err) => {
@@ -60,12 +69,11 @@ function DisplayOriginalTeam () {
           <h1>{team.name}</h1>
           {playersOnTeam.length && Object.keys(teamDraftPicks)?
             <div>
-              <DisplayGuard playersOnTeam= {playersOnTeam} />
-              <DisplaySmallForward playersOnTeam= {playersOnTeam} />
-              <DisplayForward playersOnTeam= {playersOnTeam} />
-              <DisplayPowerForward playersOnTeam= {playersOnTeam} />
-              <DisplayCenter playersOnTeam= {playersOnTeam} />
-
+              <DisplayGuard playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
+              <DisplaySmallForward playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
+              <DisplayForward playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
+              <DisplayPowerForward playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
+              <DisplayCenter playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
               <DisplayDraftPicks teamDraftPicks= {teamDraftPicks}/>
             </div>
             : null}
