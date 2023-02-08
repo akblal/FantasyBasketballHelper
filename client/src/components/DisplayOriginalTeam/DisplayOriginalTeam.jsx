@@ -9,7 +9,7 @@ import DisplayPowerForward from './DisplayPowerForward.jsx';
 import DisplayCenter from './DisplayCenter.jsx';
 import DisplayDraftPicks from './DisplayDraftPicks.jsx';
 
-function DisplayOriginalTeam ({ tradeToTwo, oneToTwo }) {
+function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
 
   const {team} = useContext(TeamContext);
   const [playersOnTeam, setPlayersOnTeam] = useState([]);
@@ -29,8 +29,17 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo }) {
         team.push(playersOnTeam[i])
       }
     }
+    console.log('here again')
     setPlayersOnTeam(team)
   }, [oneToTwo])
+
+  useEffect(() => {
+    let team = playersOnTeam.slice();
+    if (tradeToOne.length) team.push(tradeToOne[0])
+    console.log (tradeToOne, 'player to shift back')
+    setPlayersOnTeam(team)
+
+  }, [tradeToOne])
 
   const getPlayers = () => {
     axios.get('/playersFromTeam', {

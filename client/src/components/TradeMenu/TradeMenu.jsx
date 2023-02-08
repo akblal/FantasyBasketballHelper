@@ -26,6 +26,7 @@ function TradeMenu () {
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [addToTwo, setAddToTwo] = useState([]);
   const [oneToTwo, setOneToTwo] = useState();
+  const [tradeToOne, setTradeToOne] = useState([]);
 
   const handleTeam2 = (team2) => {
     setSecondTeam(team2);
@@ -69,12 +70,30 @@ function TradeMenu () {
     temp.push(player);
     setAddToTwo(temp);
     setOneToTwo(player)
+    console.log (addToTwo, 'players to be traded to 2')
+  }
+
+  const removePlayer = (player) => {
+    console.log(player, 'in remove player')
+    console.log(addToTwo, 'players to be traded to 2')
+    let temp = [];
+    let copy = addToTwo.slice();
+    for (let i = 0; i < copy.length; i++) {
+      if (copy[i].name != player.name) {
+        temp.push(copy[i])
+      }
+    }
+    setAddToTwo(temp.slice());
+    console.log(temp, 'players at the end of removal to be added to 2')
+    setTradeToOne([player])
+
+
   }
 
   return (
     <div className= 'trade-menu-container'>
       <div>
-        <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo}/>
+        <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
       <div>
         <h2>One column</h2>
@@ -86,7 +105,7 @@ function TradeMenu () {
         {addToTwo.length ?
           <div>
             <h1>players</h1>
-            <TradeGuard playersOnTeam= {addToTwo} />
+            <TradeGuard playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
             <DisplaySmallForward playersOnTeam= {addToTwo} />
             <DisplayForward playersOnTeam= {addToTwo} />
             <DisplayPowerForward playersOnTeam= {addToTwo} />

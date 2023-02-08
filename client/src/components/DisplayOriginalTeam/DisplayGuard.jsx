@@ -17,14 +17,12 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
         tempGuard.push(player)
       }
     }
-    console.log (tempGuard, 'temp guard')
     setGuard(tempGuard.slice());
   }
 
 
 
   const tradePlayer = (player) => {
-    console.log(player, ' to be traded')
     tradeToTwo(player)
   }
 

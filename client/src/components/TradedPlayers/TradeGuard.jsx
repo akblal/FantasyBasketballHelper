@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeGuard ({ playersOnTeam }) {
+function TradeGuard ({ playersOnTeam, removePlayer }) {
 
   const [guard, setGuard] = useState([]);
 
@@ -17,15 +17,15 @@ function TradeGuard ({ playersOnTeam }) {
         tempGuard.push(player)
       }
     }
-    console.log (tempGuard, 'temp guard')
     setGuard(tempGuard.slice());
   }
 
-  console.log(playersOnTeam, 'in guards')
+  console.log(playersOnTeam, 'to trade to 2')
+  console.log (guard, 'guards')
 
   const tradePlayer = (player) => {
-    console.log(player, ' to be traded')
-    tradeToTwo(player)
+    console.log (player, 'player to be removed')
+    removePlayer(player)
   }
 
   return (
