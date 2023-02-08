@@ -25,7 +25,7 @@ function TradeMenu () {
   const [secondTeamPlayers, setSecondTeamPlayers] = useState([])
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [addToTwo, setAddToTwo] = useState([]);
-  const [oneToTwo, setOneToTwo] = useState();
+  const [oneToTwo, setOneToTwo] = useState([]);
   const [tradeToOne, setTradeToOne] = useState([]);
 
   const handleTeam2 = (team2) => {
@@ -66,11 +66,17 @@ function TradeMenu () {
   }
 
   const tradeToTwo = (player) => {
+    setOneToTwo([])
     let temp = addToTwo.slice();
     temp.push(player);
     setAddToTwo(temp);
-    setOneToTwo(player)
+
     console.log (addToTwo, 'players to be traded to 2')
+    if (player === tradeToOne[0]) {
+      console.log('ARARM')
+      //setOneToTwo(null)
+    }
+    setOneToTwo([player])
   }
 
   const removePlayer = (player) => {

@@ -25,11 +25,11 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
   useEffect(() => {
     let team = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
-      if (playersOnTeam[i].name != oneToTwo.name) {
+      if (playersOnTeam[i].name != oneToTwo[0].name) {
         team.push(playersOnTeam[i])
       }
     }
-    console.log('here again')
+    console.log('here again with removing', oneToTwo)
     setPlayersOnTeam(team)
   }, [oneToTwo])
 
