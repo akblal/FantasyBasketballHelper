@@ -29,14 +29,12 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
         team.push(playersOnTeam[i])
       }
     }
-    console.log('here again with removing', oneToTwo)
     setPlayersOnTeam(team)
   }, [oneToTwo])
 
   useEffect(() => {
     let team = playersOnTeam.slice();
     if (tradeToOne.length) team.push(tradeToOne[0])
-    console.log (tradeToOne, 'player to shift back')
     setPlayersOnTeam(team)
 
   }, [tradeToOne])

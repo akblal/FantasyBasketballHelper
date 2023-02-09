@@ -13,6 +13,9 @@ function DisplayForward ({ playersOnTeam }) {
         tempForward.push(player)
       }
     }
+    tempForward = tempForward.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
     setForward(tempForward.slice());
   }, [])
 

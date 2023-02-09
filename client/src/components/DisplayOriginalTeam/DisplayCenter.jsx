@@ -13,6 +13,9 @@ function DisplayCenter ({ playersOnTeam }) {
         tempCenter.push(player)
       }
     }
+    tempCenter = tempCenter.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
     setCenter(tempCenter.slice());
   }, [])
 

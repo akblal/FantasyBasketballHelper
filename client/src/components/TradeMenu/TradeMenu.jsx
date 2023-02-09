@@ -73,8 +73,8 @@ function TradeMenu () {
 
     console.log (addToTwo, 'players to be traded to 2')
     if (player === tradeToOne[0]) {
-      console.log('ARARM')
-      //setOneToTwo(null)
+      // console.log('ARARM')
+      // //setOneToTwo(null)
     }
     setOneToTwo([player])
   }
@@ -92,8 +92,6 @@ function TradeMenu () {
     setAddToTwo(temp.slice());
     console.log(temp, 'players at the end of removal to be added to 2')
     setTradeToOne([player])
-
-
   }
 
   return (

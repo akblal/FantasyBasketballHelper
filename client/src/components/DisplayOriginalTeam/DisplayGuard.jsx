@@ -17,6 +17,9 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
         tempGuard.push(player)
       }
     }
+    tempGuard = tempGuard.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
     setGuard(tempGuard.slice());
   }
 
