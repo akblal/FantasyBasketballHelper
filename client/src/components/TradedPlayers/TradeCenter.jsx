@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeCenter({ playersOnTeam, removePlayer }) {
+function TradeCenter({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [center, setCenter] = useState([]);
 
@@ -23,7 +23,7 @@ function TradeCenter({ playersOnTeam, removePlayer }) {
   }
 
   const tradePlayer = (player) => {
-    removePlayer(player)
+    removePlayerFromTeam1Block(player)
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeSmallForward ({ playersOnTeam, removePlayer }) {
+function TradeSmallForward ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [smallForward, setSmallForward] = useState([]);
 
@@ -23,7 +23,7 @@ function TradeSmallForward ({ playersOnTeam, removePlayer }) {
   }
 
   const tradePlayer = (player) => {
-    removePlayer(player)
+    removePlayerFromTeam1Block(player)
   }
 
   return (

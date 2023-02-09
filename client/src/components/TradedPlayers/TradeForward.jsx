@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeForward ({ playersOnTeam, removePlayer }) {
+function TradeForward ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [forward, setForward] = useState([]);
 
@@ -23,7 +23,7 @@ function TradeForward ({ playersOnTeam, removePlayer }) {
   }
 
   const tradePlayer = (player) => {
-    removePlayer(player)
+    removePlayerFromTeam1Block(player)
   }
 
   return (

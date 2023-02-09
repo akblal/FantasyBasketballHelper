@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeGuard ({ playersOnTeam, removePlayer }) {
+function TradeGuard ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [guard, setGuard] = useState([]);
 
@@ -24,7 +24,7 @@ function TradeGuard ({ playersOnTeam, removePlayer }) {
   }
 
   const tradePlayer = (player) => {
-    removePlayer(player)
+    removePlayerFromTeam1Block(player)
   }
 
   return (

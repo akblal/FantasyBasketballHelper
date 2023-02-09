@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function TradePowerForward ({ playersOnTeam, removePlayer }) {
+function TradePowerForward ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [powerForward, setPowerForward] = useState([]);
 
@@ -23,7 +23,7 @@ function TradePowerForward ({ playersOnTeam, removePlayer }) {
   }
 
   const tradePlayer = (player) => {
-    removePlayer(player)
+    removePlayerFromTeam1Block(player)
   }
 
   return (
