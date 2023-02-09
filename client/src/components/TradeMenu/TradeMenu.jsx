@@ -30,6 +30,7 @@ function TradeMenu () {
   const [oneToTwo, setOneToTwo] = useState([]);
   const [tradeToOne, setTradeToOne] = useState([]);
   const [tradeBlockSalaryOne, setTradeBlockSalaryOne] = useState(0);
+  const [tradeBlockSalaryTwo, setTradeBlockSalaryTwo] = useState(0);
 
   const [addToOne, setAddToOne] = useState([]);
   const [twoToOne, setTwoToOne] = useState([]);
@@ -81,12 +82,21 @@ function TradeMenu () {
   }
 
   const teamTwoToTrade = (player) => {
-    console.log (player, 'to be traded to team 1')
     setTwoToOne([]);
     let temp = addToOne.slice();
     temp.push(player);
     setAddToOne(temp);
     setTwoToOne([player]);
+    getSalaryTradeBlockTwo(temp);
+    let team = [];
+    console.log(secondTeamPlayers, player)
+    for (let i = 0; i < secondTeamPlayers.length; i++) {
+      if (secondTeamPlayers[i].name != player.name) {
+        team.push(secondTeamPlayers[i])
+      }
+    }
+    console.log(team, 'remaining twM')
+    setSecondTeamPlayers(team)
   }
 
   const removePlayerFromTeam1Block = (player) => {
@@ -112,7 +122,11 @@ function TradeMenu () {
     }
     setAddToOne(temp.slice());
     setPlayerTradeToTwo([player])
-    getSalaryTradeBlockOne(temp);
+    getSalaryTradeBlockTwo(temp);
+    let copyPlayersTeamTwo = secondTeamPlayers.slice();
+    copyPlayersTeamTwo.push(player)
+    setSecondTeamPlayers(copyPlayersTeamTwo)
+    console.log (copyPlayersTeamTwo, 'copy teM TWO')
   }
 
   const getSalaryTradeBlockOne = (list) => {
@@ -124,6 +138,15 @@ function TradeMenu () {
     setTradeBlockSalaryOne(salary);
   }
 
+  const getSalaryTradeBlockTwo = (list) => {
+    let salary = 0;
+    for (let i = 0; i < list.length; i++) {
+      let player = list[i];
+      salary += Number((player.salary).split(',').join('').split('$').join(''));
+    }
+    setTradeBlockSalaryTwo(salary);
+  }
+
   return (
     <div className= 'trade-menu-container'>
       <div>
@@ -132,7 +155,7 @@ function TradeMenu () {
       <div>
       {addToOne.length ?
         <div>
-          {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
+          {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryTwo.toLocaleString())}</h1>}
           <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
           <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
           <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
