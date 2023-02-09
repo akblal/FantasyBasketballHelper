@@ -3,21 +3,20 @@ import axios from 'axios';
 
 import { TeamContext } from '../../App.jsx';
 
-import DisplayOriginalTeam from '../DisplayOriginalTeam/DisplayOriginalTeam.jsx'
+import DisplayOriginalTeam from '../DisplayOriginalTeam/DisplayOriginalTeam.jsx';
 import DisplayGuard from '../DisplayOriginalTeam/DisplayGuard.jsx';
 import DisplaySmallForward from '../DisplayOriginalTeam/DisplaySmallForward.jsx';
 import DisplayForward from '../DisplayOriginalTeam/DisplayForward.jsx';
 import DisplayPowerForward from '../DisplayOriginalTeam/DisplayPowerForward.jsx';
 import DisplayCenter from '../DisplayOriginalTeam/DisplayCenter.jsx';
 import DisplayDraftPicks from '../DisplayOriginalTeam/DisplayDraftPicks.jsx';
-// import TradeOption from '../DisplayOriginalTeam/TradeOption.jsx';
-// import TradeButton from '../DisplayOriginalTeam/TradeButton.jsx';
 import TradeButtonFunction from './TradeButtonFunction.jsx';
 import TradeGuardFromOne from '../TradedPlayers/TradeGuardFromOne.jsx';
 import TradeSmallForwardFromOne from '../TradedPlayers/TradeSmallForwardFromOne.jsx';
 import TradeForwardFromOne from '../TradedPlayers/TradeForwardFromOne.jsx';
 import TradePowerForwardFromOne from '../TradedPlayers/TradePowerForwardFromOne.jsx';
 import TradeCenterFromOne from '../TradedPlayers/TradeCenterFromOne.jsx';
+import DisplayTeamTwo from '../DisplayOriginalTeam/DisplayTeamTwo.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
@@ -30,6 +29,11 @@ function TradeMenu () {
   const [addToTwo, setAddToTwo] = useState([]);
   const [oneToTwo, setOneToTwo] = useState([]);
   const [tradeToOne, setTradeToOne] = useState([]);
+  const [tradeBlockSalaryOne, setTradeBlockSalaryOne] = useState(0);
+
+  const [addToOne, setAddToOne] = useState([]);
+  const [twoToOne, setTwoToOne] = useState([]);
+  const [playerTradeToTwo, setPlayerTradeToTwo] = useState([]);
 
   const handleTeam2 = (team2) => {
     setSecondTeam(team2);
@@ -68,11 +72,21 @@ function TradeMenu () {
   }
 
   const tradeToTwo = (player) => {
-    setOneToTwo([])
+    setOneToTwo([]);
     let temp = addToTwo.slice();
     temp.push(player);
     setAddToTwo(temp);
     setOneToTwo([player])
+    getSalaryTradeBlockOne(temp);
+  }
+
+  const teamTwoToTrade = (player) => {
+    console.log (player, 'to be traded to team 1')
+    setTwoToOne([]);
+    let temp = addToOne.slice();
+    temp.push(player);
+    setAddToOne(temp);
+    setTwoToOne([player]);
   }
 
   const removePlayerFromTeam1Block = (player) => {
@@ -85,6 +99,29 @@ function TradeMenu () {
     }
     setAddToTwo(temp.slice());
     setTradeToOne([player])
+    getSalaryTradeBlockOne(temp);
+  }
+
+  const removePlayerFromTeam2Block = (player) => {
+    let temp = [];
+    let copy = addToOne.slice();
+    for (let i = 0; i < copy.length; i++) {
+      if (copy[i].name != player.name) {
+        temp.push(copy[i])
+      }
+    }
+    setAddToOne(temp.slice());
+    setPlayerTradeToTwo([player])
+    getSalaryTradeBlockOne(temp);
+  }
+
+  const getSalaryTradeBlockOne = (list) => {
+    let salary = 0;
+    for (let i = 0; i < list.length; i++) {
+      let player = list[i];
+      salary += Number((player.salary).split(',').join('').split('$').join(''));
+    }
+    setTradeBlockSalaryOne(salary);
   }
 
   return (
@@ -93,7 +130,16 @@ function TradeMenu () {
         <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
       <div>
-        <h2>One column</h2>
+      {addToOne.length ?
+        <div>
+          {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
+          <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+          <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+          <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+          <TradePowerForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+          <TradeCenterFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+        </div>
+        : null}
       </div>
       <div>
         {!secondTeam ?
@@ -101,26 +147,19 @@ function TradeMenu () {
           : null}
         {addToTwo.length ?
           <div>
-            <h1>players</h1>
+            {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
             <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
             <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
             <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
             <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
             <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
           </div>
-          : null
-        }
+          : null}
       </div>
       <div>
         {secondTeamPlayers.length && teamDraftPicks?
           <div>
-          <h1>{secondTeam.name}</h1>
-            <DisplayGuard playersOnTeam= {secondTeamPlayers} />
-            <DisplaySmallForward playersOnTeam= {secondTeamPlayers} />
-            <DisplayForward playersOnTeam= {secondTeamPlayers} />
-            <DisplayPowerForward playersOnTeam= {secondTeamPlayers} />
-            <DisplayCenter playersOnTeam= {secondTeamPlayers} />
-            <DisplayDraftPicks teamDraftPicks= {teamDraftPicks}/>
+            <DisplayTeamTwo oneToTwo= {twoToOne} playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade} teamDraftPicks= {teamDraftPicks} tradeToOne= {playerTradeToTwo} secondTeam= {secondTeam}/>
           </div>
         : <h2>players not shown</h2>}
   </div>
@@ -129,3 +168,11 @@ function TradeMenu () {
 }
 
 export default TradeMenu
+
+
+// <DisplayGuard playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
+//             <DisplaySmallForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
+//             <DisplayForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
+//             <DisplayPowerForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
+//             <DisplayCenter playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
+//             <DisplayDraftPicks teamDraftPicks= {teamDraftPicks}/>

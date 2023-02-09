@@ -29,12 +29,15 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
         team.push(playersOnTeam[i])
       }
     }
+    console.log (oneToTwo, 'display team name one to two')
+    console.log(playersOnTeam, 'display team name players on team 1')
     setPlayersOnTeam(team)
   }, [oneToTwo])
 
   useEffect(() => {
     let team = playersOnTeam.slice();
     if (tradeToOne.length) team.push(tradeToOne[0])
+    console.log (tradeToOne, 'display team name  traee to 1')
     setPlayersOnTeam(team)
 
   }, [tradeToOne])
