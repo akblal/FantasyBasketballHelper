@@ -17,14 +17,13 @@ function TradeGuard ({ playersOnTeam, removePlayer }) {
         tempGuard.push(player)
       }
     }
+    tempGuard = tempGuard.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
     setGuard(tempGuard.slice());
   }
 
-  console.log(playersOnTeam, 'to trade to 2')
-  console.log (guard, 'guards')
-
   const tradePlayer = (player) => {
-    console.log (player, 'player to be removed')
     removePlayer(player)
   }
 

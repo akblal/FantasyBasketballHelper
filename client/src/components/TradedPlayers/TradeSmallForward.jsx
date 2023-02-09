@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
-function DisplaySmallForward ({ playersOnTeam, tradeToTwo }) {
+function TradeSmallForward ({ playersOnTeam, removePlayer }) {
 
   const [smallForward, setSmallForward] = useState([]);
 
   useEffect(() => {
+    getSmallForward();
+  }, [playersOnTeam])
+
+  const getSmallForward = () => {
     let tempSmallForward = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
       let player = playersOnTeam[i];
@@ -16,10 +20,10 @@ function DisplaySmallForward ({ playersOnTeam, tradeToTwo }) {
       return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
     })
     setSmallForward(tempSmallForward.slice());
-  }, [playersOnTeam])
+  }
 
   const tradePlayer = (player) => {
-    tradeToTwo(player)
+    removePlayer(player)
   }
 
   return (
@@ -34,4 +38,4 @@ function DisplaySmallForward ({ playersOnTeam, tradeToTwo }) {
   )
 }
 
-export default DisplaySmallForward
+export default TradeSmallForward

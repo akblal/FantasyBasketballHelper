@@ -38,7 +38,6 @@ function DropDownMenuList ( {pickedTeam} ) {
   }
 
   const handleTradePartner = (team) => {
-    console.log(team, 'trade partner');
     pickedTeam(team)
   }
 

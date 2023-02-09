@@ -157,7 +157,6 @@ const getSalary = async (url) => {
 
       })
       .then (() => {
-        // console.log(allPlayerSalaryList, allPlayerSalaryList.length)
         let allPlayerStatsCSV = new ObjectsToCsv(allPlayerSalaryList);
         allPlayerStatsCSV.toDisk('./playerSalary.csv')
       })

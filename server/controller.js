@@ -15,10 +15,8 @@ module.exports = {
   },
   draftPicks (req, res) {
     const team = JSON.parse(req.query.team)
-    console.log (team, 'this is the team')
     model.draftPicks(team)
       .then((results) => {
-        console.log(results, 'hello')
         res.send(results)
         res.status(200)
       })

@@ -14,6 +14,10 @@ import TradeOption from '../DisplayOriginalTeam/TradeOption.jsx';
 import TradeButton from '../DisplayOriginalTeam/TradeButton.jsx';
 import TradeButtonFunction from './TradeButtonFunction.jsx';
 import TradeGuard from '../TradedPlayers/TradeGuard.jsx';
+import TradeSmallForward from '../TradedPlayers/TradeSmallForward.jsx';
+import TradeForward from '../TradedPlayers/TradeForward.jsx';
+import TradePowerForward from '../TradedPlayers/TradePowerForward.jsx';
+import TradeCenter from '../TradedPlayers/TradeCenter.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
@@ -57,7 +61,6 @@ function TradeMenu () {
     })
     .then((results) => {
       let picks = results.data[0];
-      console.log(picks, 'picks')
       setTeamDraftPicks(picks);
     })
     .catch ((err) => {
@@ -70,18 +73,10 @@ function TradeMenu () {
     let temp = addToTwo.slice();
     temp.push(player);
     setAddToTwo(temp);
-
-    console.log (addToTwo, 'players to be traded to 2')
-    if (player === tradeToOne[0]) {
-      // console.log('ARARM')
-      // //setOneToTwo(null)
-    }
     setOneToTwo([player])
   }
 
   const removePlayer = (player) => {
-    console.log(player, 'in remove player')
-    console.log(addToTwo, 'players to be traded to 2')
     let temp = [];
     let copy = addToTwo.slice();
     for (let i = 0; i < copy.length; i++) {
@@ -90,7 +85,6 @@ function TradeMenu () {
       }
     }
     setAddToTwo(temp.slice());
-    console.log(temp, 'players at the end of removal to be added to 2')
     setTradeToOne([player])
   }
 
@@ -110,10 +104,10 @@ function TradeMenu () {
           <div>
             <h1>players</h1>
             <TradeGuard playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
-            <DisplaySmallForward playersOnTeam= {addToTwo} />
-            <DisplayForward playersOnTeam= {addToTwo} />
-            <DisplayPowerForward playersOnTeam= {addToTwo} />
-            <DisplayCenter playersOnTeam= {addToTwo} />
+            <TradeSmallForward playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
+            <TradeForward playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
+            <TradePowerForward playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
+            <TradeCenter playersOnTeam= {addToTwo} removePlayer= {removePlayer}/>
           </div>
           : null
         }

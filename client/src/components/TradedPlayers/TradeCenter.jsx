@@ -1,37 +1,41 @@
 import React, { useState, useEffect } from 'react'
 
-function DisplaySmallForward ({ playersOnTeam, tradeToTwo }) {
+function TradeCenter({ playersOnTeam, removePlayer }) {
 
-  const [smallForward, setSmallForward] = useState([]);
+  const [center, setCenter] = useState([]);
 
   useEffect(() => {
-    let tempSmallForward = [];
-    for (let i = 0; i < playersOnTeam.length; i++) {
-      let player = playersOnTeam[i];
-      if (player.position === 'G-F' || player.position === 'F-G') {
-        tempSmallForward.push(player)
-      }
-    }
-    tempSmallForward = tempSmallForward.sort (function(a,b) {
-      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
-    })
-    setSmallForward(tempSmallForward.slice());
+    getCenter();
   }, [playersOnTeam])
 
+  const getCenter = () => {
+    let tempCenter = [];
+    for (let i = 0; i < playersOnTeam.length; i++) {
+      let player = playersOnTeam[i];
+      if (player.position === 'C') {
+        tempCenter.push(player)
+      }
+    }
+    tempCenter = tempCenter.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
+    setCenter(tempCenter.slice());
+  }
+
   const tradePlayer = (player) => {
-    tradeToTwo(player)
+    removePlayer(player)
   }
 
   return (
     <div>
-      {smallForward.length ?
-        <h2>Small Forward</h2>
+      {center.length ?
+        <h2>Center</h2>
         : null}
-      {smallForward.length ? smallForward.map((player) => {
+      {center.length ? center.map((player) => {
         return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
 }
 
-export default DisplaySmallForward
+export default TradeCenter

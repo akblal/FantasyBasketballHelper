@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
-function DisplayPowerForward ({ playersOnTeam }) {
+function DisplayPowerForward ({ playersOnTeam, tradeToTwo }) {
 
   const [powerForward, setPowerForward] = useState([]);
 
   useEffect(() => {
+    getPowerForward();
+  }, [playersOnTeam])
 
+  const getPowerForward = () => {
     let tempPowerForward = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
       let player = playersOnTeam[i];
@@ -17,7 +20,11 @@ function DisplayPowerForward ({ playersOnTeam }) {
       return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
     })
     setPowerForward(tempPowerForward.slice());
-  }, [])
+  }
+
+  const tradePlayer = (player) => {
+    tradeToTwo(player)
+  }
 
   return (
     <div>
@@ -25,7 +32,7 @@ function DisplayPowerForward ({ playersOnTeam }) {
         <h2>Power Forward</h2>
         : null}
       {powerForward.length ? powerForward.map((player) => {
-        return <h4 key= {player.name} className= 'player-container'>{player.name} {player.salary}</h4>
+        return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )

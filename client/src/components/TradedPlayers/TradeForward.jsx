@@ -1,37 +1,41 @@
 import React, { useState, useEffect } from 'react'
 
-function DisplaySmallForward ({ playersOnTeam, tradeToTwo }) {
+function TradeForward ({ playersOnTeam, removePlayer }) {
 
-  const [smallForward, setSmallForward] = useState([]);
+  const [forward, setForward] = useState([]);
 
   useEffect(() => {
-    let tempSmallForward = [];
-    for (let i = 0; i < playersOnTeam.length; i++) {
-      let player = playersOnTeam[i];
-      if (player.position === 'G-F' || player.position === 'F-G') {
-        tempSmallForward.push(player)
-      }
-    }
-    tempSmallForward = tempSmallForward.sort (function(a,b) {
-      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
-    })
-    setSmallForward(tempSmallForward.slice());
+    getForward();
   }, [playersOnTeam])
 
+  const getForward = () => {
+    let tempForward = [];
+    for (let i = 0; i < playersOnTeam.length; i++) {
+      let player = playersOnTeam[i];
+      if (player.position === 'F') {
+        tempForward.push(player)
+      }
+    }
+    tempForward = tempForward.sort (function(a,b) {
+      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+    })
+    setForward(tempForward.slice());
+  }
+
   const tradePlayer = (player) => {
-    tradeToTwo(player)
+    removePlayer(player)
   }
 
   return (
     <div>
-      {smallForward.length ?
-        <h2>Small Forward</h2>
+      {forward.length ?
+        <h2>Forward</h2>
         : null}
-      {smallForward.length ? smallForward.map((player) => {
+      {forward.length ? forward.map((player) => {
         return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
 }
 
-export default DisplaySmallForward
+export default TradeForward

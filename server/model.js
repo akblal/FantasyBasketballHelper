@@ -14,7 +14,6 @@ module.exports = {
         if (err) {
           return reject(err)
         }
-        console.log(result.rows)
         resolve(result.rows);
       })
     })
@@ -28,7 +27,6 @@ module.exports = {
         if (err) {
           return reject (err)
         }
-        console.log (result.rows, 'hello in model')
         resolve(result.rows);
       })
     })
