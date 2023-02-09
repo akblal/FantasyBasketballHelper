@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeGuard ({ playersOnTeam, removePlayerFromTeam1Block }) {
+function TradePowerForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
-  const [guard, setGuard] = useState([]);
+  const [powerForward, setPowerForward] = useState([]);
 
   useEffect(() => {
-
-    getGuard();
+    getPowerForward();
   }, [playersOnTeam])
 
-  const getGuard = () => {
-    let tempGuard = [];
+  const getPowerForward = () => {
+    let tempPowerForward = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
       let player = playersOnTeam[i];
-      if (player.position === 'G') {
-        tempGuard.push(player)
+      if (player.position === 'F-C' || player.position === 'C-F') {
+        tempPowerForward.push(player)
       }
     }
-    tempGuard = tempGuard.sort (function(a,b) {
+    tempPowerForward = tempPowerForward.sort (function(a,b) {
       return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
     })
-    setGuard(tempGuard.slice());
+    setPowerForward(tempPowerForward.slice());
   }
 
   const tradePlayer = (player) => {
@@ -29,14 +28,14 @@ function TradeGuard ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   return (
     <div>
-      {guard.length ?
-        <h2>Guard</h2>
+      {powerForward.length ?
+        <h2>Power Forward</h2>
         : null}
-      {guard.length ? guard.map((player) => {
+      {powerForward.length ? powerForward.map((player) => {
         return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
 }
 
-export default TradeGuard
+export default TradePowerForwardFromOne

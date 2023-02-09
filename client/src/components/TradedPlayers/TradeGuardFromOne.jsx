@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeCenter({ playersOnTeam, removePlayerFromTeam1Block }) {
+function TradeGuardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
-  const [center, setCenter] = useState([]);
+  const [guard, setGuard] = useState([]);
 
   useEffect(() => {
-    getCenter();
+
+    getGuard();
   }, [playersOnTeam])
 
-  const getCenter = () => {
-    let tempCenter = [];
+  const getGuard = () => {
+    let tempGuard = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
       let player = playersOnTeam[i];
-      if (player.position === 'C') {
-        tempCenter.push(player)
+      if (player.position === 'G') {
+        tempGuard.push(player)
       }
     }
-    tempCenter = tempCenter.sort (function(a,b) {
+    tempGuard = tempGuard.sort (function(a,b) {
       return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
     })
-    setCenter(tempCenter.slice());
+    setGuard(tempGuard.slice());
   }
 
   const tradePlayer = (player) => {
@@ -28,14 +29,14 @@ function TradeCenter({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   return (
     <div>
-      {center.length ?
-        <h2>Center</h2>
+      {guard.length ?
+        <h2>Guard</h2>
         : null}
-      {center.length ? center.map((player) => {
+      {guard.length ? guard.map((player) => {
         return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
 }
 
-export default TradeCenter
+export default TradeGuardFromOne

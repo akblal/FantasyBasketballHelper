@@ -13,11 +13,11 @@ import DisplayDraftPicks from '../DisplayOriginalTeam/DisplayDraftPicks.jsx';
 // import TradeOption from '../DisplayOriginalTeam/TradeOption.jsx';
 // import TradeButton from '../DisplayOriginalTeam/TradeButton.jsx';
 import TradeButtonFunction from './TradeButtonFunction.jsx';
-import TradeGuard from '../TradedPlayers/TradeGuard.jsx';
-import TradeSmallForward from '../TradedPlayers/TradeSmallForward.jsx';
-import TradeForward from '../TradedPlayers/TradeForward.jsx';
-import TradePowerForward from '../TradedPlayers/TradePowerForward.jsx';
-import TradeCenter from '../TradedPlayers/TradeCenter.jsx';
+import TradeGuardFromOne from '../TradedPlayers/TradeGuardFromOne.jsx';
+import TradeSmallForwardFromOne from '../TradedPlayers/TradeSmallForwardFromOne.jsx';
+import TradeForwardFromOne from '../TradedPlayers/TradeForwardFromOne.jsx';
+import TradePowerForwardFromOne from '../TradedPlayers/TradePowerForwardFromOne.jsx';
+import TradeCenterFromOne from '../TradedPlayers/TradeCenterFromOne.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
@@ -102,11 +102,11 @@ function TradeMenu () {
         {addToTwo.length ?
           <div>
             <h1>players</h1>
-            <TradeGuard playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeSmallForward playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeForward playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradePowerForward playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeCenter playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
           </div>
           : null
         }

@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
 
-function TradeForward ({ playersOnTeam, removePlayerFromTeam1Block }) {
+function TradeCenterFromOne({ playersOnTeam, removePlayerFromTeam1Block }) {
 
-  const [forward, setForward] = useState([]);
+  const [center, setCenter] = useState([]);
 
   useEffect(() => {
-    getForward();
+    getCenter();
   }, [playersOnTeam])
 
-  const getForward = () => {
-    let tempForward = [];
+  const getCenter = () => {
+    let tempCenter = [];
     for (let i = 0; i < playersOnTeam.length; i++) {
       let player = playersOnTeam[i];
-      if (player.position === 'F') {
-        tempForward.push(player)
+      if (player.position === 'C') {
+        tempCenter.push(player)
       }
     }
-    tempForward = tempForward.sort (function(a,b) {
+    tempCenter = tempCenter.sort (function(a,b) {
       return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
     })
-    setForward(tempForward.slice());
+    setCenter(tempCenter.slice());
   }
 
   const tradePlayer = (player) => {
@@ -28,14 +28,14 @@ function TradeForward ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   return (
     <div>
-      {forward.length ?
-        <h2>Forward</h2>
+      {center.length ?
+        <h2>Center</h2>
         : null}
-      {forward.length ? forward.map((player) => {
+      {center.length ? center.map((player) => {
         return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
       }) : null}
     </div>
   )
 }
 
-export default TradeForward
+export default TradeCenterFromOne
