@@ -15,36 +15,17 @@ function DisplayTeamTwo ({ secondTeam, playersOnTeam, tradeToTwo, oneToTwo, trad
 
   useEffect(() => {
     let team = [];
-    // if (oneToTwo.length) {
-      for (let i = 0; i < playersOnTeam.length; i++) {
-        if (oneToTwo.length && playersOnTeam[i].name != oneToTwo[0].name) {
-          team.push(playersOnTeam[i])
-        }
+    for (let i = 0; i < playersOnTeam.length; i++) {
+      if (oneToTwo.length && playersOnTeam[i].name != oneToTwo[0].name) {
+        team.push(playersOnTeam[i])
       }
-    // }
-    console.log(team, 'team in onetotwo')
+    }
     setPlayersTeamTwo(team)
   }, [oneToTwo])
 
   useEffect(() => {
     let team = playersOnTeam.slice();
-    let counter = 0;
-    // if (tradeToOne.length) {
-    //   for (let i = 0; i < playersTeamTwo.length; i++) {
-    //     if (playersTeamTwo[i].name != tradeToOne[0].name) {
-    //       counter++;
-    //     }
-    //   }
-    // }
-    // if (counter != playersTeamTwo.length) {
-    //   team.push(tradeToOne[0])
-    // }
-
-    //if (tradeToOne.length) team.push(tradeToOne[0])
-
-    console.log(team, 'team in tradetoone')
     setPlayersTeamTwo(team)
-
   }, [tradeToOne])
 
   return (

@@ -21,7 +21,6 @@ module.exports = {
 
   draftPicks(team) {
     return new Promise ((resolve, reject) => {
-      console.log (team.name)
       const queryStatement = `SELECT * FROM draftpicks WHERE team = '${team.name}'`
       pool.query(queryStatement, (err, result) => {
         if (err) {

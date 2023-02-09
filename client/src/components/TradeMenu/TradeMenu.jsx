@@ -89,13 +89,11 @@ function TradeMenu () {
     setTwoToOne([player]);
     getSalaryTradeBlockTwo(temp);
     let team = [];
-    console.log(secondTeamPlayers, player)
     for (let i = 0; i < secondTeamPlayers.length; i++) {
       if (secondTeamPlayers[i].name != player.name) {
         team.push(secondTeamPlayers[i])
       }
     }
-    console.log(team, 'remaining twM')
     setSecondTeamPlayers(team)
   }
 
@@ -126,7 +124,6 @@ function TradeMenu () {
     let copyPlayersTeamTwo = secondTeamPlayers.slice();
     copyPlayersTeamTwo.push(player)
     setSecondTeamPlayers(copyPlayersTeamTwo)
-    console.log (copyPlayersTeamTwo, 'copy teM TWO')
   }
 
   const getSalaryTradeBlockOne = (list) => {
