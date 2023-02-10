@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 function TradeSmallForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [smallForward, setSmallForward] = useState([]);
+
+  const smallForwardLabel = '(SF)';
 
   useEffect(() => {
     getSmallForward();
@@ -28,11 +33,27 @@ function TradeSmallForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }
 
   return (
     <div>
-      {smallForward.length ?
-        <h2>Small Forward</h2>
-        : null}
       {smallForward.length ? smallForward.map((player) => {
-        return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
+        return (
+          <div key= {player.name} className= 'player-container'>
+            <div className= 'player-photo-container'>
+              <FontAwesomeIcon icon= {faCircleUser} className= 'player-photo'/>
+            </div>
+            <div className= 'player-general-info-container'>
+              <div className= 'player-name-container'>
+                <div className= 'player-name'>
+                {smallForwardLabel} {player.name}
+                </div>
+              </div>
+              <div className= 'player-salary'>
+                {player.salary}
+              </div>
+            </div>
+            <div className= 'player-trade-button-container'>
+              <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
+            </div>
+          </div>
+        )
       }) : null}
     </div>
   )

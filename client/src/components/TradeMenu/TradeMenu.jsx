@@ -150,29 +150,33 @@ function TradeMenu () {
         <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
       <div>
-      {addToOne.length ?
-        <div>
-          {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryTwo.toLocaleString())}</h1>}
-          <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-          <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-          <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-          <TradePowerForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-          <TradeCenterFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-        </div>
-        : null}
+        {addToOne.length ?
+          <div className= 'team-container'>
+            <div className= 'team-1-container'>
+              {tradeBlockSalaryTwo && <h1>{'$'+(tradeBlockSalaryTwo.toLocaleString())}</h1>}
+              <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+              <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+              <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+              <TradePowerForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+              <TradeCenterFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+            </div>
+          </div>
+          : null}
       </div>
       <div>
         {!secondTeam ?
           <TradeButtonFunction handleTeam2= {handleTeam2}/>
           : null}
         {addToTwo.length ?
-          <div>
-            {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
-            <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-            <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+          <div className= 'team-container'>
+            <div className= 'team-1-container'>
+              {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
+              <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+              <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+              <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+              <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+              <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+            </div>
           </div>
           : null}
       </div>

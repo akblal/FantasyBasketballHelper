@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 function TradeGuardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   const [guard, setGuard] = useState([]);
+
+  const guardLabel = '(G)';
 
   useEffect(() => {
 
@@ -29,12 +34,28 @@ function TradeGuardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
   return (
     <div>
-      {guard.length ?
-        <h2>Guard</h2>
-        : null}
       {guard.length ? guard.map((player) => {
-        return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
-      }) : null}
+        return (
+          <div key= {player.name} className= 'player-container'>
+            <div className= 'player-photo-container'>
+              <FontAwesomeIcon icon= {faCircleUser} className= 'player-photo'/>
+            </div>
+            <div className= 'player-general-info-container'>
+              <div className= 'player-name-container'>
+                <div className= 'player-name'>
+                {guardLabel} {player.name}
+                </div>
+              </div>
+              <div className= 'player-salary'>
+                {player.salary}
+              </div>
+            </div>
+            <div className= 'player-trade-button-container'>
+              <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
+            </div>
+          </div>
+        )
+      }) : null}`
     </div>
   )
 }

@@ -49,7 +49,6 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
                 {player.salary}
               </div>
             </div>
-
             <div className= 'player-trade-button-container'>
               <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
             </div>
