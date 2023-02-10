@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser, faXmark, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 function TradeForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
 
@@ -50,7 +50,7 @@ function TradeForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
               </div>
             </div>
             <div className= 'player-trade-button-container'>
-              <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
+              <FontAwesomeIcon icon= {faXmark} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
             </div>
           </div>
         )
