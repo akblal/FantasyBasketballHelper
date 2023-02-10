@@ -182,17 +182,9 @@ function TradeMenu () {
             <DisplayTeamTwo oneToTwo= {twoToOne} playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade} teamDraftPicks= {teamDraftPicks} tradeToOne= {playerTradeToTwo} secondTeam= {secondTeam}/>
           </div>
         : <h2>players not shown</h2>}
-  </div>
+      </div>
     </div>
   )
 }
 
 export default TradeMenu
-
-
-// <DisplayGuard playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
-//             <DisplaySmallForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
-//             <DisplayForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
-//             <DisplayPowerForward playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
-//             <DisplayCenter playersOnTeam= {secondTeamPlayers} tradeToTwo= {teamTwoToTrade}/>
-//             <DisplayDraftPicks teamDraftPicks= {teamDraftPicks}/>

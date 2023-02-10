@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 function DisplayCenter ({ playersOnTeam, tradeToTwo }) {
 
   const [center, setCenter] = useState([]);
+
+  const centerLabel = '(C)';
 
   useEffect(() => {
     getCenter();
@@ -28,12 +33,28 @@ function DisplayCenter ({ playersOnTeam, tradeToTwo }) {
 
   return (
     <div>
-      {center.length ?
-        <h2>Center</h2>
-        : null}
-      {center.length ? center.map((player) => {
-        return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
-      }) : null}
+    {center.length ? center.map((player) => {
+      return (
+        <div key= {player.name} className= 'player-container'>
+          <div className= 'player-photo-container'>
+            <FontAwesomeIcon icon= {faCircleUser} className= 'player-photo'/>
+          </div>
+          <div className= 'player-general-info-container'>
+            <div className= 'player-name-container'>
+              <div className= 'player-name'>
+                {centerLabel} {player.name}
+              </div>
+            </div>
+            <div className= 'player-salary'>
+              {player.salary}
+            </div>
+          </div>
+          <div className= 'player-trade-button-container'>
+            <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
+          </div>
+        </div>
+      )
+    }) : null}
     </div>
   )
 }

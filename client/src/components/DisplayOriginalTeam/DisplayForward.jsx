@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 function DisplayForward ({ playersOnTeam, tradeToTwo }) {
 
   const [forward, setForward] = useState([]);
+
+  const forwardLabel = '(F)';
 
   useEffect(() => {
     let tempForward = [];
@@ -24,12 +29,28 @@ function DisplayForward ({ playersOnTeam, tradeToTwo }) {
 
   return (
     <div>
-      {forward.length ?
-        <h2>Forward</h2>
-        : null}
-      {forward.length ? forward.map((player) => {
-        return <h4 key= {player.name} className= 'player-container' onClick= {() => tradePlayer(player)}>{player.name} {player.salary}</h4>
-      }) : null}
+    {forward.length ? forward.map((player) => {
+      return (
+        <div key= {player.name} className= 'player-container'>
+          <div className= 'player-photo-container'>
+            <FontAwesomeIcon icon= {faCircleUser} className= 'player-photo'/>
+          </div>
+          <div className= 'player-general-info-container'>
+            <div className= 'player-name-container'>
+              <div className= 'player-name'>
+              {forwardLabel} {player.name}
+              </div>
+            </div>
+            <div className= 'player-salary'>
+              {player.salary}
+            </div>
+          </div>
+          <div className= 'player-trade-button-container'>
+            <FontAwesomeIcon icon= {faPlaneDeparture} className= 'player-trade-button' onClick= {() => tradePlayer(player)}/>
+          </div>
+        </div>
+      )
+    }) : null}
     </div>
   )
 }
