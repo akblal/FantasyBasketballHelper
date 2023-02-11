@@ -42,7 +42,10 @@ function TradeForwardFromOne ({ playersOnTeam, removePlayerFromTeam1Block }) {
             <div className= 'player-general-info-container'>
               <div className= 'player-name-container'>
                 <div className= 'player-name'>
-                {forwardLabel} {player.name}
+                  {forwardLabel} {player.name}
+                  {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Out' && <div className= 'injury-out'></div>}
+                  {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Day-To-Day' && <div className= 'injury-day-to-day'></div>}
+                  {!player.playerInjuryReport && <div className= 'injury-healthy'></div>}
                 </div>
               </div>
               <div className= 'player-salary'>

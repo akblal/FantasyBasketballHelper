@@ -79,6 +79,7 @@ function TradeMenu () {
     setAddToTwo(temp);
     setOneToTwo([player])
     getSalaryTradeBlockOne(temp);
+    console.log (player, 'in trade menu')
   }
 
   const teamTwoToTrade = (player) => {

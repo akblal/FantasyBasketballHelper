@@ -16,9 +16,6 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [open, setOpen] = useState(false);
 
-  console.log (team, '<-------------')
-
-
   useEffect(() => {
     getPlayers();
     getPicks();
@@ -79,7 +76,6 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
       <div className= 'team-container'>
         <div className= 'team-1-container'>
           <h1>{team.name}</h1>
-          {console.log(playersOnTeam, 'playersonteam', teamDraftPicks, 'team picks')}
           {Array.isArray(playersOnTeam) && playersOnTeam.length && teamDraftPicks && Object.keys(teamDraftPicks)?
             <div>
               <DisplayGuard playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>

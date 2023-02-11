@@ -27,9 +27,7 @@ module.exports = {
   },
 
   getInjuryUpdate(req,res) {
-    //console.log (req, 'IN CONTROLLER')
     const player = JSON.parse(req.query.player)
-    // console.log(player)
     model.getInjuryUpdate(player)
     .then((results) => {
       res.send(results);

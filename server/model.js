@@ -23,7 +23,6 @@ module.exports = {
     return new Promise ((resolve, reject) => {
       if (team.name === 'Philadelphia 76ers') {
         team.name = 'Philadelphia Sixers';
-        console.log ('hi i here')
       }
       const queryStatement = `SELECT * FROM draftpicks WHERE team = '${team.name}'`
       pool.query(queryStatement, (err, result) => {
