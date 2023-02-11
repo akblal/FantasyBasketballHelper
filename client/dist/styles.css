@@ -241,6 +241,8 @@ a {
 .player-name {
   font-size: 25px;
   margin-right: 5px;
+  display: flex;
+  flex-direction: row;
 }
 
 .more-player-info-container {
@@ -301,5 +303,26 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.injury-healthy,
+.injury-day-to-day,
+.injury-out {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: 3px;
+}
+
+.injury-out {
+  background: rgb(241, 106, 106);
+}
+
+.injury-day-to-day {
+  background: rgb(238, 218, 71);
+}
+
+.injury-healthy {
+  background: rgb(147, 230, 45);
 }
 

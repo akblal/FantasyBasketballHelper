@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -6,26 +7,46 @@ import { faCircleUser, faPlaneDeparture, faCircleInfo } from '@fortawesome/free-
 function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
 
   const [guard, setGuard] = useState([]);
+  console.log (playersOnTeam, 'pllayers on team in display guard')
 
   const guardLabel = '(G)';
-
+  console.log (playersOnTeam, 'display guard')
   useEffect(() => {
+    console.log(playersOnTeam)
+    const getGuard = async() => {
+      let tempGuard = [];
+      for (let i = 0; i < playersOnTeam.length; i++) {
+        let player = playersOnTeam[i];
+        if (player.position === 'G') {
+          tempGuard.push(player)
+        }
+      }
+      console.log(tempGuard, 'tempguard')
+
+      for (let i = 0; i < tempGuard.length; i++) {
+        let player = tempGuard[i];
+        const playerInjuryReport = await axios.get('/getInjuryUpdate', {
+          params: {
+            player
+          }
+        })
+        if ((playerInjuryReport.data).length) {
+          player.playerInjuryReport = playerInjuryReport.data[0];
+          console.log(player.playerInjuryReport, 'injury report')
+        }
+        console.log(i, player.name)
+      }
+
+      console.log(playersOnTeam, tempGuard)
+      tempGuard = tempGuard.sort (function(a,b) {
+        return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
+      })
+
+      setGuard(tempGuard.slice());
+    }
+
     getGuard();
   }, [playersOnTeam])
-
-  const getGuard = () => {
-    let tempGuard = [];
-    for (let i = 0; i < playersOnTeam.length; i++) {
-      let player = playersOnTeam[i];
-      if (player.position === 'G') {
-        tempGuard.push(player)
-      }
-    }
-    tempGuard = tempGuard.sort (function(a,b) {
-      return Number((b.salary).split(',').join('').split('$').join('')) - Number((a.salary).split(',').join('').split('$').join(''));
-    })
-    setGuard(tempGuard.slice());
-  }
 
   const tradePlayer = (player) => {
     tradeToTwo(player)
@@ -43,6 +64,9 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
               <div className= 'player-name-container'>
                 <div className= 'player-name'>
                 {guardLabel} {player.name}
+                {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Out' && <div className= 'injury-out'></div>}
+                {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Day-To-Day' && <div className= 'injury-day-to-day'></div>}
+                {!player.playerInjuryReport && <div className= 'injury-healthy'></div>}
                 </div>
               </div>
               <div className= 'player-salary'>
@@ -61,6 +85,3 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
 
 export default DisplayGuard
 
-// <div className= 'more-player-info-container'>
-//               <FontAwesomeIcon icon= {faCircleInfo} className= 'more-player-info'/>
-//             </div>

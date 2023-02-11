@@ -88,7 +88,7 @@ export const allNBATeams = [
     abbv: 'Orl'
   },
   {
-    name: 'Philadephia 76ers',
+    name: 'Philadelphia 76ers',
     abbv: 'Phi'
   },
   {
@@ -171,7 +171,7 @@ export const easternConference = [
     abbv: 'Orl'
   },
   {
-    name: 'Philadephia 76ers',
+    name: 'Philadelphia 76ers',
     abbv: 'Phi'
   },
   {
@@ -261,7 +261,7 @@ export const atlanticDivision = [
     abbv: 'Nyk'
   },
   {
-    name: 'Philadephia 76ers',
+    name: 'Philadelphia 76ers',
     abbv: 'Phi'
   },
   {

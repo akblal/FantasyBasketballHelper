@@ -24,5 +24,20 @@ module.exports = {
         res.status(500)
         console.log(err)
       })
+  },
+
+  getInjuryUpdate(req,res) {
+    //console.log (req, 'IN CONTROLLER')
+    const player = JSON.parse(req.query.player)
+    // console.log(player)
+    model.getInjuryUpdate(player)
+    .then((results) => {
+      res.send(results);
+      res.status(200);
+    })
+    .catch ((err) => {
+      console.log(err)
+      res.status(500)
+    })
   }
 }

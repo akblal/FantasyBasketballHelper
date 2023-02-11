@@ -216,6 +216,7 @@ axios(teamDraftPicks)
 
 app.get('/playersFromTeam', controller.playersFromTeam)
 app.get('/draftPicks', controller.draftPicks)
+app.get('/getInjuryUpdate', controller.getInjuryUpdate)
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), function(err) {
     if (err) {

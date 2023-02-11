@@ -16,6 +16,8 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [open, setOpen] = useState(false);
 
+  console.log (team, '<-------------')
+
 
   useEffect(() => {
     getPlayers();
@@ -36,7 +38,6 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
     let team = playersOnTeam.slice();
     if (tradeToOne.length) team.push(tradeToOne[0])
     setPlayersOnTeam(team)
-
   }, [tradeToOne])
 
   const getPlayers = () => {
@@ -47,7 +48,9 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
     })
     .then((results) => {
       let players = results.data;
-      setPlayersOnTeam(players.slice())
+
+
+      setPlayersOnTeam(players.slice());
     })
     .catch ((err) => {
       console.log (err, 'err from get request in DisplayOriginalTeam')
@@ -69,12 +72,15 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne }) {
     })
   }
 
+
+
   return (
     <div>
       <div className= 'team-container'>
         <div className= 'team-1-container'>
           <h1>{team.name}</h1>
-          {playersOnTeam.length && Object.keys(teamDraftPicks)?
+          {console.log(playersOnTeam, 'playersonteam', teamDraftPicks, 'team picks')}
+          {Array.isArray(playersOnTeam) && playersOnTeam.length && teamDraftPicks && Object.keys(teamDraftPicks)?
             <div>
               <DisplayGuard playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>
               <DisplaySmallForward playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>

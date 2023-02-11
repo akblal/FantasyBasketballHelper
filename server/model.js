@@ -21,12 +21,33 @@ module.exports = {
 
   draftPicks(team) {
     return new Promise ((resolve, reject) => {
+      if (team.name === 'Philadelphia 76ers') {
+        team.name = 'Philadelphia Sixers';
+        console.log ('hi i here')
+      }
       const queryStatement = `SELECT * FROM draftpicks WHERE team = '${team.name}'`
       pool.query(queryStatement, (err, result) => {
         if (err) {
           return reject (err)
         }
         resolve(result.rows);
+      })
+    })
+  },
+  getInjuryUpdate (player)  {
+    return new Promise ((resolve, reject) => {
+      if ((player.name).includes("'")) {
+        let index = (player.name).indexOf("'");
+        player.name = (player.name).slice (0,index) + "'" + (player.name).slice(index);
+
+      }
+      const queryStatement = `SELECT * FROM injury WHERE name = '${player.name}';`;
+      pool.query(queryStatement, (err, result) => {
+        if (err) {
+          return reject (err)
+        }
+        console.log (result.rows, 'for', player.name)
+        resolve (result.rows)
       })
     })
   }
