@@ -38,14 +38,12 @@ module.exports = {
       if ((player.name).includes("'")) {
         let index = (player.name).indexOf("'");
         player.name = (player.name).slice (0,index) + "'" + (player.name).slice(index);
-
       }
       const queryStatement = `SELECT * FROM injury WHERE name = '${player.name}';`;
       pool.query(queryStatement, (err, result) => {
         if (err) {
           return reject (err)
         }
-        console.log (result.rows, 'for', player.name)
         resolve (result.rows)
       })
     })

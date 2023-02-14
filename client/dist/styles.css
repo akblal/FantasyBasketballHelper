@@ -206,7 +206,7 @@ a {
 
 .trade-menu-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
 }
 
 .player-container {
@@ -326,3 +326,21 @@ a {
   background: rgb(147, 230, 45);
 }
 
+.trade-div-container {
+  position: sticky;
+  top: 0;
+  height:fit-content;
+}
+
+.official-trade-button {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trading-block-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: fit-content;
+}

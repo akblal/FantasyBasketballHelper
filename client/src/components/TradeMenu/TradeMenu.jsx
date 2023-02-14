@@ -79,7 +79,6 @@ function TradeMenu () {
     setAddToTwo(temp);
     setOneToTwo([player])
     getSalaryTradeBlockOne(temp);
-    console.log (player, 'in trade menu')
   }
 
   const teamTwoToTrade = (player) => {
@@ -150,37 +149,52 @@ function TradeMenu () {
       <div>
         <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
-      <div>
-        {addToOne.length ?
-          <div className= 'team-container'>
-            <div className= 'team-1-container'>
-              {tradeBlockSalaryTwo && <h1>{'$'+(tradeBlockSalaryTwo.toLocaleString())}</h1>}
-              <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-              <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-              <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-              <TradePowerForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-              <TradeCenterFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
-            </div>
+      <div className= 'trading-block-container trade-div-container'>
+        {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) < 5000000) && (tradeBlockSalaryOne > 0) && (tradeBlockSalaryTwo > 0) ?
+          <div className= 'official-trade-button'>
+            Hello world!
           </div>
-          : null}
-      </div>
-      <div>
-        {!secondTeam ?
-          <TradeButtonFunction handleTeam2= {handleTeam2}/>
-          : null}
-        {addToTwo.length ?
-          <div className= 'team-container'>
-            <div className= 'team-1-container'>
-              {tradeBlockSalaryOne && <h1>{'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
-              <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-              <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-              <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-              <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
-              <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+          : null
+        }
+        <div >
+          {addToOne.length ?
+            <div className= 'team-container'>
+              <div className= 'team-1-container'>
+                {tradeBlockSalaryTwo && <h1>Total: {'$'+(tradeBlockSalaryTwo.toLocaleString())}</h1>}
+                {(tradeBlockSalaryOne - tradeBlockSalaryTwo > 5000000 )&&
+                  <span>more assets required</span>}
+                <TradeGuardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+                <TradeSmallForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+                <TradeForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+                <TradePowerForwardFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+                <TradeCenterFromOne playersOnTeam= {addToOne} removePlayerFromTeam1Block= {removePlayerFromTeam2Block}/>
+              </div>
             </div>
-          </div>
-          : null}
+            : secondTeam && secondTeam.name.length &&
+              <h1>Select Players from {secondTeam.name}</h1>
+          }
+        </div>
+        <div className= 'trade-div-container'>
+          {!secondTeam ?
+            <TradeButtonFunction handleTeam2= {handleTeam2}/>
+            : null}
+          {addToTwo.length ?
+            <div className= 'team-container'>
+              <div className= 'team-1-container'>
+                {tradeBlockSalaryOne && <h1>Total: {'$'+(tradeBlockSalaryOne.toLocaleString())}</h1>}
+                {(tradeBlockSalaryTwo - tradeBlockSalaryOne > 5000000 )&&
+                  <span>more assets required</span>}
+                <TradeGuardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+                <TradeSmallForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+                <TradeForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+                <TradePowerForwardFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+                <TradeCenterFromOne playersOnTeam= {addToTwo} removePlayerFromTeam1Block= {removePlayerFromTeam1Block}/>
+              </div>
+            </div>
+            : <h1>Select Players from {team.name}</h1>}
+        </div>
       </div>
+
       <div>
         {secondTeamPlayers.length && teamDraftPicks?
           <div>
