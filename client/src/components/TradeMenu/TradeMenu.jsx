@@ -150,12 +150,14 @@ function TradeMenu () {
         <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
       <div className= 'trading-block-container trade-div-container'>
-        {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) < 5000000) && (tradeBlockSalaryOne > 0) && (tradeBlockSalaryTwo > 0) ?
+
+        {team.name.length && secondTeam && secondTeam.name.length ?
           <div className= 'official-trade-button'>
-            Hello world!
+            <button disabled= {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) >= 5000000 || tradeBlockSalaryOne === 0 || tradeBlockSalaryTwo === 0)}> Trade! </button>
           </div>
           : null
         }
+
         <div >
           {addToOne.length ?
             <div className= 'team-container'>
