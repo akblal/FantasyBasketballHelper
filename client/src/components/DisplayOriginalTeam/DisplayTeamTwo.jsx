@@ -28,6 +28,10 @@ function DisplayTeamTwo ({ secondTeam, playersOnTeam, tradeToTwo, oneToTwo, trad
     setPlayersTeamTwo(team)
   }, [tradeToOne])
 
+  useEffect(() => {
+    setPlayersTeamTwo(playersOnTeam)
+  }, [playersOnTeam])
+
   return (
     <div>
       <div className= 'team-container'>

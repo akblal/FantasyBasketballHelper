@@ -225,6 +225,10 @@ app.get('/*', function(req, res) {
   })
 })
 
+app.post('/setOriginalTeam', controller.setOriginalTeam)
+
+app.put('/swapTeams', controller.swapTeams)
+
 app.listen(Number(process.env.PORT),()=>{
   console.log(`listening on port ${process.env.PORT}`);
 })

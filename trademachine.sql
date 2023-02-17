@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS injury;
 DROP TABLE IF EXISTS allPlayers;
 DROP TABLE IF EXISTS salary;
 DROP TABLE IF EXISTS draftPicks;
+DROP TABLE IF EXISTS originalTeam;
 
 CREATE TABLE injury (
   name TEXT NOT NULL,
@@ -52,6 +53,12 @@ CREATE TABLE draftPicks (
   team TEXT NOT NULL,
   firstRound SMALLSERIAL NOT NULL,
   secondRound SMALLSERIAL NOT NULL
+);
+
+
+CREATE TABLE originalTeam (
+  name TEXT NOT NULL unique,
+  team TEXT NOT NULL
 );
 
 \COPY injury FROM 'injuryList.csv' DELIMITERS ',' CSV HEADER;

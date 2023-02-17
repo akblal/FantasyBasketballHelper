@@ -50,7 +50,7 @@ function TradeMenu () {
     })
     .then((results) => {
       let players = results.data;
-      setSecondTeamPlayers(players.slice())
+      setSecondTeamPlayers([...players])
     })
     .catch ((err) => {
       console.log (err, 'err from get request in DisplayOriginalTeam')
@@ -144,20 +144,41 @@ function TradeMenu () {
     setTradeBlockSalaryTwo(salary);
   }
 
+  const handleTrade = async () => {
+
+    try {
+      let playersInTrade = addToOne.concat(addToTwo)
+      let setTeam = await axios.post('/setOriginalTeam', {
+        playersInTrade
+      })
+
+      let swapTeam = await axios.put('/swapTeams', {
+        team1: [addToTwo[0].team, addToOne],
+        team2: [addToOne[0].team, addToTwo],
+      })
+
+      setAddToOne([]);
+      setAddToTwo([]);
+      getPlayers(secondTeam);
+    }
+    catch(err) {
+      console.log(err, 'set teams')
+    }
+
+  }
+
   return (
     <div className= 'trade-menu-container'>
       <div>
         <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
       </div>
       <div className= 'trading-block-container trade-div-container'>
-
         {team.name.length && secondTeam && secondTeam.name.length ?
           <div className= 'official-trade-button'>
-            <button disabled= {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) >= 5000000 || tradeBlockSalaryOne === 0 || tradeBlockSalaryTwo === 0)}> Trade! </button>
+            <button onClick= {handleTrade} disabled= {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) >= 5000000 || tradeBlockSalaryOne === 0 || tradeBlockSalaryTwo === 0)}> Trade! </button>
           </div>
           : null
         }
-
         <div >
           {addToOne.length ?
             <div className= 'team-container'>
