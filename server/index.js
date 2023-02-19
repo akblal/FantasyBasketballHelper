@@ -60,6 +60,7 @@ axios(allPlayerStatsURL)
     let playerData = $('.row-hover')
     let allPlayerData = []
     let player = {};
+    let duplicateCheck = {};
     $(playerData).each((parentIdx, parentElem) => {
       const playerStats = [
         'name',
@@ -97,6 +98,23 @@ axios(allPlayerStatsURL)
           player[playerStats[index]] = $(grandChildElem).text();
           if (index === 27) {
             allPlayerData.push(player)
+
+            if (duplicateCheck[player.name] === undefined) {
+              duplicateCheck[player.name]++
+            } else {
+              let dupIndex;
+              for (let i = 0; i < allPlayerData.length; i++) {
+                let checkPlayer = allPlayerData[i];
+
+                if (checkPlayer.name === player.name) {
+                  console.log(player.name, player.team, checkPlayer.name, checkPlayer.team)
+                  dupIndex = i;
+                  //console.log(player.name)
+                  break;
+                }
+              }
+              allPlayerData.splice(dupIndex,1);
+            }
             player = {}
           }
           index++
@@ -104,6 +122,19 @@ axios(allPlayerStatsURL)
           player[playerStats[index]] = 'N/A';
           if (index === 27) {
             allPlayerData.push(player)
+            if (duplicateCheck[player.name] === undefined) {
+              duplicateCheck[player.name]++
+            } else {
+              let dupIndex;
+              for (let i = 0; i < allPlayerData.length; i++) {
+                let checkPlayer = allPlayerData[i];
+                if (checkPlayer.name === player.name) {
+                  dupIndex = i;
+                  break;
+                }
+              }
+              allPlayerData.splice(dupIndex,1);
+            }
             player = {}
           }
           index++

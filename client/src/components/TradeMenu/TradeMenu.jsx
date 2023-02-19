@@ -24,6 +24,7 @@ import { faRightLeft } from '@fortawesome/free-solid-svg-icons';
 function TradeMenu () {
   const {team} = useContext(TeamContext);
   const [secondTeam, setSecondTeam] = useState();
+  const [firstTeamPlayers, setFirstTeamPlayers] = useState([])
   const [secondTeamPlayers, setSecondTeamPlayers] = useState([])
   const [teamDraftPicks, setTeamDraftPicks] = useState(null);
   const [addToTwo, setAddToTwo] = useState([]);
@@ -38,11 +39,11 @@ function TradeMenu () {
 
   const handleTeam2 = (team2) => {
     setSecondTeam(team2);
-    getPlayers(team2);
-    getPicks(team2);
+    getPlayers(team2, 'two');
+    getPicks(team2, 'two');
   }
 
-  const getPlayers = (team) => {
+  const getPlayers = (team, teamNumber) => {
     axios.get('/playersFromTeam', {
       params: {
         team
@@ -50,7 +51,12 @@ function TradeMenu () {
     })
     .then((results) => {
       let players = results.data;
-      setSecondTeamPlayers([...players])
+      if (teamNumber === 'two') {
+        setSecondTeamPlayers([...players])
+      } else {
+        setFirstTeamPlayers([...players])
+      }
+
     })
     .catch ((err) => {
       console.log (err, 'err from get request in DisplayOriginalTeam')
@@ -159,18 +165,18 @@ function TradeMenu () {
 
       setAddToOne([]);
       setAddToTwo([]);
-      getPlayers(secondTeam);
+      getPlayers(secondTeam, 'two');
+      getPlayers(team, 'one')
     }
     catch(err) {
       console.log(err, 'set teams')
     }
-
   }
 
   return (
     <div className= 'trade-menu-container'>
       <div>
-        <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne}/>
+        <DisplayOriginalTeam tradeToTwo= {tradeToTwo} oneToTwo= {oneToTwo} tradeToOne= {tradeToOne} firstTeamPlayers= {firstTeamPlayers}/>
       </div>
       <div className= 'trading-block-container trade-div-container'>
         {team.name.length && secondTeam && secondTeam.name.length ?
