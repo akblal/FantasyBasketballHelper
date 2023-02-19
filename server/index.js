@@ -98,7 +98,6 @@ axios(allPlayerStatsURL)
           player[playerStats[index]] = $(grandChildElem).text();
           if (index === 27) {
             allPlayerData.push(player)
-
             if (duplicateCheck[player.name] === undefined) {
               duplicateCheck[player.name]++
             } else {
@@ -107,9 +106,7 @@ axios(allPlayerStatsURL)
                 let checkPlayer = allPlayerData[i];
 
                 if (checkPlayer.name === player.name) {
-                  console.log(player.name, player.team, checkPlayer.name, checkPlayer.team)
                   dupIndex = i;
-                  //console.log(player.name)
                   break;
                 }
               }
