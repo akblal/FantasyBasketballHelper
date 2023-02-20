@@ -55,7 +55,6 @@ module.exports = {
   swapTeams(req, res) {
     let team1 = req.body.team1;
     let team2 = req.body.team2;
-    console.log (team1, team2, 'traded players')
     model.swapTeams(team1, team2)
     .then((results) => {
       res.status(201)

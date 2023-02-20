@@ -29,6 +29,7 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne, firstTeamPlaye
       }
     }
     setPlayersOnTeam(team)
+
   }, [oneToTwo])
 
   useEffect(() => {
@@ -38,7 +39,6 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne, firstTeamPlaye
   }, [tradeToOne])
 
   useEffect(() => {
-    console.log(firstTeamPlayers, 'players on firstTeam')
     setPlayersOnTeam(firstTeamPlayers)
   }, [firstTeamPlayers])
 
@@ -50,12 +50,10 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne, firstTeamPlaye
     })
     .then((results) => {
       let players = results.data;
-
-
       setPlayersOnTeam(players.slice());
     })
     .catch ((err) => {
-      console.log (err, 'err from get request in DisplayOriginalTeam')
+       (err, 'err from get request in DisplayOriginalTeam')
     })
   }
 
@@ -74,13 +72,9 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne, firstTeamPlaye
     })
   }
 
-
-
   return (
     <div>
       <div className= 'team-container'>
-      {console.log(playersOnTeam)}
-      {console.log(firstTeamPlayers)}
         <div className= 'team-1-container'>
           <h1>{team.name}</h1>
           {Array.isArray(playersOnTeam) && playersOnTeam.length && teamDraftPicks && Object.keys(teamDraftPicks)?

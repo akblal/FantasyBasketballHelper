@@ -43,24 +43,25 @@ function TradeMenu () {
     getPicks(team2, 'two');
   }
 
-  const getPlayers = (team, teamNumber) => {
-    axios.get('/playersFromTeam', {
-      params: {
-        team
-      }
-    })
-    .then((results) => {
+  const getPlayers = async(team, teamNumber) => {
+    try {
+      let results = await axios.get('/playersFromTeam', {
+        params: {
+          team
+        }
+      })
+
       let players = results.data;
       if (teamNumber === 'two') {
         setSecondTeamPlayers([...players])
+
       } else {
         setFirstTeamPlayers([...players])
       }
-
-    })
-    .catch ((err) => {
+    }
+    catch (err){
       console.log (err, 'err from get request in DisplayOriginalTeam')
-    })
+    }
   }
 
   const getPicks = (team) => {
@@ -154,19 +155,24 @@ function TradeMenu () {
 
     try {
       let playersInTrade = addToOne.concat(addToTwo)
-      let setTeam = await axios.post('/setOriginalTeam', {
+      await axios.post('/setOriginalTeam', {
         playersInTrade
       })
 
-      let swapTeam = await axios.put('/swapTeams', {
+      let swap = await axios.put('/swapTeams', {
         team1: [addToTwo[0].team, addToOne],
         team2: [addToOne[0].team, addToTwo],
       })
 
+      console.log(swap)
       setAddToOne([]);
       setAddToTwo([]);
-      getPlayers(secondTeam, 'two');
-      getPlayers(team, 'one')
+      setTimeout(() => {
+        getPlayers(secondTeam, 'two');
+        getPlayers(team, 'one')
+      }, 500)
+      setTradeBlockSalaryOne(0)
+      setTradeBlockSalaryTwo(0)
     }
     catch(err) {
       console.log(err, 'set teams')
@@ -180,6 +186,7 @@ function TradeMenu () {
       </div>
       <div className= 'trading-block-container trade-div-container'>
         {team.name.length && secondTeam && secondTeam.name.length ?
+
           <div className= 'official-trade-button'>
             <button onClick= {handleTrade} disabled= {(Math.abs(tradeBlockSalaryOne - tradeBlockSalaryTwo) >= 5000000 || tradeBlockSalaryOne === 0 || tradeBlockSalaryTwo === 0)}> Trade! </button>
           </div>

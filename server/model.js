@@ -2,6 +2,8 @@ const pool = require ('./pool.js');
 
 module.exports = {
   playersFromTeam (team) {
+
+    console.log (team, 'team in model')
     return new Promise ((resolve, reject) => {
       const queryStatement = (`SELECT * FROM (
         SELECT a.team, a.name, a.position, s.salary FROM
@@ -80,8 +82,7 @@ module.exports = {
         let player = playersToTeam2[i];
         totalPlayers.push ([teamTwoName, player.name])
       }
-
-      console.log(totalPlayers, 'total players')
+      console.log(totalPlayers)
       for (let i = 0; i < totalPlayers.length; i++) {
         let player = totalPlayers[i];
         let teamName = player[0];
@@ -89,10 +90,13 @@ module.exports = {
         const queryStatement = `UPDATE allplayers SET team = '${teamName}' WHERE name = '${playerName}';`
         pool.query(queryStatement, (err, result) => {
           if (err) {
+            console.log(err)
             return reject (err)
           }
           resolve(result)
+          console.log(i, teamName, playerName)
         })
+
       }
 
     })
