@@ -279,6 +279,11 @@ a {
 
 .player-trade-button:hover {
   cursor: pointer;
+  transform: scale(0.90);
+}
+
+.player-trade-button:active {
+  transform: scale(0.80);
 }
 
 .draft-picks-container {

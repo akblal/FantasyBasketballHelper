@@ -152,7 +152,6 @@ function TradeMenu () {
   }
 
   const handleTrade = async () => {
-
     try {
       let playersInTrade = addToOne.concat(addToTwo)
       await axios.post('/setOriginalTeam', {
@@ -163,8 +162,6 @@ function TradeMenu () {
         team1: [addToTwo[0].team, addToOne],
         team2: [addToOne[0].team, addToTwo],
       })
-
-      console.log(swap)
       setAddToOne([]);
       setAddToTwo([]);
       setTimeout(() => {

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 
-import { atlanticDivision, centralDivision, southeastDivision } from './NBATeams.js'
+import { atlanticDivision, centralDivision, southeastDivision, northwestDivision, pacificDivision, southwestDivision } from './NBATeams.js'
 import { TeamContext } from '../../App.jsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const ViewByDivision = () => {
               return (
                 <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                   <div className= 'team-logo'>
-                    {team.name}
+                   {team.logo}
                   </div>
                 </div>
               )
@@ -36,7 +36,7 @@ const ViewByDivision = () => {
               return (
                 <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                   <div className= 'team-logo'>
-                    {team.name}
+                    {team.logo}
                   </div>
                 </div>
               )
@@ -48,7 +48,7 @@ const ViewByDivision = () => {
             return (
               <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                 <div className= 'team-logo'>
-                  {team.name}
+                  {team.logo}
                 </div>
               </div>
             )
@@ -58,22 +58,22 @@ const ViewByDivision = () => {
       <div className= 'western-conference-division-container'>
         <div className= 'two-divisions-container'>
           <div className= 'two-divisions-division-container'>
-            {atlanticDivision.map((team, index) => {
+            {northwestDivision.map((team, index) => {
               return (
                 <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                   <div className= 'team-logo'>
-                    {team.name}
+                    {team.logo}
                   </div>
                 </div>
               )
             })}
           </div>
           <div className='two-divisions-division-container'>
-            {centralDivision.map((team, index) => {
+            {pacificDivision.map((team, index) => {
               return (
                 <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                   <div className= 'team-logo'>
-                    {team.name}
+                    {team.logo}
                   </div>
                 </div>
               )
@@ -81,11 +81,11 @@ const ViewByDivision = () => {
           </div>
         </div>
         <div className= 'one-division-container'>
-          {southeastDivision.map((team, index) => {
+          {southwestDivision.map((team, index) => {
             return (
               <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
                 <div className= 'team-logo'>
-                  {team.name}
+                  {team.logo}
                 </div>
               </div>
             )

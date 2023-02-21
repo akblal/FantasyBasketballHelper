@@ -22,7 +22,7 @@ const ViewByConference = () => {
           return (
             <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
               <div className= 'team-logo'>
-                {team.name}
+                {team.logo}
               </div>
             </div>
           )
@@ -33,7 +33,7 @@ const ViewByConference = () => {
         return (
           <div key= {index} className= 'team-logo-container' onClick= {() => handleSelectedTeam(team)}>
             <div className= 'team-logo'>
-              {team.name}
+              {team.logo}
             </div>
           </div>
         )
