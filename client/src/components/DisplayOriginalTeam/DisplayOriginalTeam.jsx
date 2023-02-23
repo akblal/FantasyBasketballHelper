@@ -76,7 +76,8 @@ function DisplayOriginalTeam ({ tradeToTwo, oneToTwo, tradeToOne, firstTeamPlaye
     <div>
       <div className= 'team-container'>
         <div className= 'team-1-container'>
-          <h1>{team.name}</h1>
+          {team.logo}
+          <span> {team.name}</span>
           {Array.isArray(playersOnTeam) && playersOnTeam.length && teamDraftPicks && Object.keys(teamDraftPicks)?
             <div>
               <DisplayGuard playersOnTeam= {playersOnTeam} tradeToTwo= {tradeToTwo}/>

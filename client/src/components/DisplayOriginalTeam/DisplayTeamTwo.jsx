@@ -36,7 +36,8 @@ function DisplayTeamTwo ({ secondTeam, playersOnTeam, tradeToTwo, oneToTwo, trad
     <div>
       <div className= 'team-container'>
         <div className= 'team-1-container'>
-          <h1>{secondTeam.name}</h1>
+          <span>{secondTeam.name}</span>
+          {secondTeam.logo}
           {playersOnTeam.length && Object.keys(teamDraftPicks)?
             <div>
               <DisplayGuard playersOnTeam= {playersTeamTwo} tradeToTwo= {tradeToTwo}/>

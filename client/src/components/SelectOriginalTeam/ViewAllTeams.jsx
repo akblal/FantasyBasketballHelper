@@ -1,7 +1,8 @@
 import React, { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { allNBATeams } from './NBATeams.js'
-import { TeamContext } from '../../App.jsx'
+import { allNBATeams } from './NBATeams.js';
+import { TeamContext } from '../../App.jsx';
+import NBALogo from '../../icons/nba_no_background.png';
 
 const SelectTeam = () => {
 
@@ -17,6 +18,10 @@ const SelectTeam = () => {
 
   return (
     <div>
+      <div className= 'NBA-logo-container'>
+        <img src=  {NBALogo} alt= 'NBA Logo'/>
+      </div>
+
       <div className= 'all-team-logo-container'>
         {allNBATeams.map((team, index) => {
           return (
