@@ -441,3 +441,46 @@ a {
   height: 300px;
   width: auto;
 }
+
+#injury-report-container {
+  position: relative;
+  cursor: pointer;
+  /* border-bottom: 2px dotted; */
+  font-size: 10px;
+  /* background-color: blue; */
+  width: max-content;
+}
+
+#injury-report-text {
+  position: absolute;
+  /* left: 50%;
+  top: 0; */
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  /* white-space: nowrap; */
+  padding: 10px 15px;
+  /* border: 1px solid black; */
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background-color: brown;
+
+}
+
+#injury-report-text::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+}
+
+#injury-report-container:hover #injury-report-text{
+  top: -130%;
+  visibility: visible;
+  opacity: 1;
+  /* width: 50%; */
+}

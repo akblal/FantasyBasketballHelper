@@ -32,6 +32,7 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
       })
       if ((playerInjuryReport.data).length) {
         player.playerInjuryReport = playerInjuryReport.data[0];
+        console.log(player.playerInjuryReport, 'player injury')
       }
     }
 
@@ -58,8 +59,24 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
               <div className= 'player-name-container'>
                 <div className= 'player-name'>
                 {guardLabel} {player.name}
-                {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Out' && <div className= 'injury-out'></div>}
-                {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Day-To-Day' && <div className= 'injury-day-to-day'></div>}
+                {player.playerInjuryReport && player.playerInjuryReport.status && (player.playerInjuryReport.status === 'Day-To-Day' || player.playerInjuryReport.status === 'Out') &&
+                  <div id= 'injury-report-container'>
+                    <div id= 'injury-report-text'>
+                      <div>
+                        {player.playerInjuryReport.status}
+                      </div>
+                      <div>
+                        {player.playerInjuryReport.date}
+                      </div>
+                      <div>
+                        {player.playerInjuryReport.comment}
+                      </div>
+                    </div>
+                    {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Out' && <div className= 'injury-out'></div>}
+                    {player.playerInjuryReport && player.playerInjuryReport.status && player.playerInjuryReport.status === 'Day-To-Day' && <div className= 'injury-day-to-day'></div>}
+                  </div>
+                }
+
                 {!player.playerInjuryReport && <div className= 'injury-healthy'></div>}
                 </div>
               </div>
@@ -79,3 +96,4 @@ function DisplayGuard ({ playersOnTeam, tradeToTwo }) {
 
 export default DisplayGuard
 
+// {player.playerInjuryReport && player.playerInjuryReport.status && (player.playerInjuryReport.status === 'Day-To-Day' || player.playerInjuryReport.status === 'Out')}
